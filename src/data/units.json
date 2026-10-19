@@ -1,17 +1,1108 @@
 [
   {
-    "id": "noob",
-    "name": "Noob",
+    "id": "anim-dude",
+    "name": "Anim Dude",
+    "capacity": 2,
+    "rarity": "Exclusive",
+    "type": "AOE",
+    "obtainable": "Exclusive",
+    "added": "2026-08-26",
+    "addedUpdate": "ENDLESS UPDATE",
+    "image": "",
+    "levels": [
+      {
+        "level": 1,
+        "cost": 1150,
+        "damage": 25,
+        "range": 11,
+        "fireRate": 1
+      },
+      {
+        "level": 2,
+        "cost": 2500,
+        "damage": 30,
+        "range": 11,
+        "fireRate": 1.1
+      },
+      {
+        "level": 3,
+        "cost": 5000,
+        "damage": 35,
+        "range": 12,
+        "fireRate": 1.1
+      },
+      {
+        "level": 4,
+        "cost": 12500,
+        "damage": 40,
+        "range": 13,
+        "fireRate": 1.2
+      }
+    ]
+  },
+  {
+    "id": "balloon-boy",
+    "name": "Balloon Boy",
+    "capacity": 3,
+    "rarity": "Common",
+    "type": "Pierce",
+    "obtainable": "Summon",
+    "added": "2026-09-11",
+    "addedUpdate": "SUMMONS UPDATE",
+    "image": "",
+    "levels": [
+      {
+        "level": 1,
+        "cost": 100,
+        "damage": 14,
+        "range": 6,
+        "fireRate": 0.8
+      },
+      {
+        "level": 2,
+        "cost": 200,
+        "damage": 16,
+        "range": 7,
+        "fireRate": 0.9
+      },
+      {
+        "level": 3,
+        "cost": 400,
+        "damage": 18,
+        "range": 8,
+        "fireRate": 1
+      }
+    ]
+  },
+  {
+    "id": "bear5",
+    "name": "Bear5",
+    "capacity": 4,
+    "rarity": "Exclusive",
+    "type": "AOE",
+    "obtainable": "Exclusive",
+    "added": "2026-09-22",
+    "addedUpdate": "QUESTS UPDATE",
+    "image": "",
+    "levels": [
+      {
+        "level": 1,
+        "cost": 675,
+        "damage": 19,
+        "range": 8,
+        "fireRate": 1.1
+      },
+      {
+        "level": 2,
+        "cost": 1250,
+        "damage": 20,
+        "range": 9,
+        "fireRate": 1.1
+      },
+      {
+        "level": 3,
+        "cost": 2400,
+        "damage": 22,
+        "range": 9,
+        "fireRate": 1.2
+      },
+      {
+        "level": 4,
+        "cost": 6500,
+        "damage": 24,
+        "range": 10,
+        "fireRate": 1.3
+      }
+    ]
+  },
+  {
+    "id": "bonnie",
+    "name": "Bonnie",
+    "capacity": 3,
+    "rarity": "Uncommon",
+    "type": "Splash",
+    "obtainable": "Summon",
+    "added": "2026-08-09",
+    "addedUpdate": "EA RELEASE",
+    "image": "",
+    "levels": [
+      {
+        "level": 1,
+        "cost": 450,
+        "damage": 20,
+        "range": 8.5,
+        "fireRate": 0.8
+      },
+      {
+        "level": 2,
+        "cost": 800,
+        "damage": 23,
+        "range": 9,
+        "fireRate": 0.9
+      },
+      {
+        "level": 3,
+        "cost": 1350,
+        "damage": 25,
+        "range": 9.5,
+        "fireRate": 1
+      },
+      {
+        "level": 4,
+        "cost": 2000,
+        "damage": 28,
+        "range": 10,
+        "fireRate": 1.1
+      }
+    ]
+  },
+  {
+    "id": "crying-child",
+    "name": "Crying Child",
+    "capacity": 5,
+    "rarity": "Epic",
+    "type": "Pierce",
+    "obtainable": "Quest",
+    "added": "2026-09-22",
+    "addedUpdate": "QUESTS UPDATE",
+    "image": "",
+    "levels": [
+      {
+        "level": 1,
+        "cost": 150,
+        "damage": 14,
+        "range": 7,
+        "fireRate": 0.9
+      },
+      {
+        "level": 2,
+        "cost": 1500,
+        "damage": 25,
+        "range": 8,
+        "fireRate": 1.1
+      }
+    ]
+  },
+  {
+    "id": "chica",
+    "name": "Chica",
+    "capacity": 2,
+    "rarity": "Common",
+    "type": "Pierce",
+    "obtainable": "Summon",
+    "added": "2026-08-09",
+    "addedUpdate": "EA RELEASE",
+    "image": "",
+    "levels": [
+      {
+        "level": 1,
+        "cost": 200,
+        "damage": 20,
+        "range": 7,
+        "fireRate": 0.5
+      },
+      {
+        "level": 2,
+        "cost": 300,
+        "damage": 22,
+        "range": 8,
+        "fireRate": 0.6
+      },
+      {
+        "level": 3,
+        "cost": 600,
+        "damage": 25,
+        "range": 9,
+        "fireRate": 0.8
+      }
+    ]
+  },
+  {
+    "id": "chupcake",
+    "name": "Chupcake",
+    "capacity": 2,
+    "rarity": "Legendary",
+    "type": "Pierce",
+    "obtainable": "Endless",
+    "added": "2026-08-26",
+    "addedUpdate": "ENDLESS UPDATE",
+    "image": "",
+    "levels": [
+      {
+        "level": 1,
+        "cost": 2000,
+        "damage": 185,
+        "range": 8,
+        "fireRate": 0.5
+      },
+      {
+        "level": 2,
+        "cost": 5000,
+        "damage": 225,
+        "range": 9,
+        "fireRate": 0.6
+      },
+      {
+        "level": 3,
+        "cost": 12500,
+        "damage": 250,
+        "range": 10,
+        "fireRate": 0.8
+      }
+    ]
+  },
+  {
+    "id": "endo-01",
+    "name": "Endo 01",
+    "capacity": 4,
     "rarity": "Common",
     "type": "Single",
-    "description": "A straightforward starter unit. Replace this description with the official unit lore or strategy.",
+    "obtainable": "Starter",
+    "added": "2026-08-09",
+    "addedUpdate": "EA RELEASE",
     "image": "",
-    "damage": 100,
-    "fireRate": 1,
-    "range": 15,
-    "cost": null,
-    "capacity": null,
+    "levels": [
+      {
+        "level": 1,
+        "cost": 50,
+        "damage": 6,
+        "range": 5,
+        "fireRate": 1
+      },
+      {
+        "level": 2,
+        "cost": 75,
+        "damage": 7,
+        "range": 6,
+        "fireRate": 1.1
+      },
+      {
+        "level": 3,
+        "cost": 175,
+        "damage": 8,
+        "range": 8,
+        "fireRate": 1.2
+      },
+      {
+        "level": 4,
+        "cost": 450,
+        "damage": 10,
+        "range": 8,
+        "fireRate": 1.3
+      }
+    ]
+  },
+  {
+    "id": "endo-02",
+    "name": "Endo 02",
+    "capacity": 2,
+    "rarity": "Uncommon",
+    "type": "Speed Debuff",
     "obtainable": "Summon",
-    "upgrades": []
+    "added": "2026-10-07",
+    "addedUpdate": "WORKSHOP UPDATE",
+    "image": "",
+    "levels": [
+      {
+        "level": 1,
+        "cost": 500,
+        "damage": 0.9,
+        "range": 12,
+        "fireRate": 1
+      },
+      {
+        "level": 2,
+        "cost": 1000,
+        "damage": 0.87,
+        "range": 13,
+        "fireRate": 1
+      },
+      {
+        "level": 3,
+        "cost": 2000,
+        "damage": 0.84,
+        "range": 14,
+        "fireRate": 1
+      },
+      {
+        "level": 4,
+        "cost": 4000,
+        "damage": 0.8,
+        "range": 15,
+        "fireRate": 1
+      }
+    ]
+  },
+  {
+    "id": "fastbear",
+    "name": "Fastbear",
+    "capacity": 2,
+    "rarity": "Exclusive",
+    "type": "Single",
+    "obtainable": "Exclusive",
+    "added": "2026-09-11",
+    "addedUpdate": "SUMMONS UPDATE",
+    "image": "",
+    "levels": [
+      {
+        "level": 1,
+        "cost": 900,
+        "damage": 275,
+        "range": 13,
+        "fireRate": 0.5
+      },
+      {
+        "level": 2,
+        "cost": 2250,
+        "damage": 325,
+        "range": 14,
+        "fireRate": 0.5
+      },
+      {
+        "level": 3,
+        "cost": 4500,
+        "damage": 410,
+        "range": 15,
+        "fireRate": 0.5
+      },
+      {
+        "level": 4,
+        "cost": 9500,
+        "damage": 500,
+        "range": 16,
+        "fireRate": 0.5
+      }
+    ]
+  },
+  {
+    "id": "foxy",
+    "name": "Foxy",
+    "capacity": 4,
+    "rarity": "Rare",
+    "type": "Pierce",
+    "obtainable": "Summon",
+    "added": "2026-08-09",
+    "addedUpdate": "EA RELEASE",
+    "image": "",
+    "levels": [
+      {
+        "level": 1,
+        "cost": 500,
+        "damage": 14,
+        "range": 7,
+        "fireRate": 2
+      },
+      {
+        "level": 2,
+        "cost": 1000,
+        "damage": 15,
+        "range": 8,
+        "fireRate": 2.1
+      },
+      {
+        "level": 3,
+        "cost": 2500,
+        "damage": 17,
+        "range": 9,
+        "fireRate": 2.2
+      }
+    ]
+  },
+  {
+    "id": "freddy",
+    "name": "Freddy",
+    "capacity": 2,
+    "rarity": "Epic",
+    "type": "Single",
+    "obtainable": "Summon",
+    "added": "2026-08-09",
+    "addedUpdate": "EA RELEASE",
+    "image": "",
+    "levels": [
+      {
+        "level": 1,
+        "cost": 1500,
+        "damage": 120,
+        "range": 12,
+        "fireRate": 1.3
+      },
+      {
+        "level": 2,
+        "cost": 2500,
+        "damage": 140,
+        "range": 13,
+        "fireRate": 1.4
+      },
+      {
+        "level": 3,
+        "cost": 5000,
+        "damage": 180,
+        "range": 14,
+        "fireRate": 1.4
+      },
+      {
+        "level": 4,
+        "cost": 10000,
+        "damage": 225,
+        "range": 15,
+        "fireRate": 1.5
+      }
+    ]
+  },
+  {
+    "id": "golden-freddy",
+    "name": "Golden Freddy",
+    "capacity": 1,
+    "rarity": "Legendary",
+    "type": "AOE",
+    "obtainable": "Summon",
+    "added": "2026-08-09",
+    "addedUpdate": "EA RELEASE",
+    "image": "",
+    "levels": [
+      {
+        "level": 1,
+        "cost": 5000,
+        "damage": 70,
+        "range": 20,
+        "fireRate": 1.2
+      },
+      {
+        "level": 2,
+        "cost": 10000,
+        "damage": 80,
+        "range": 21,
+        "fireRate": 1.3
+      },
+      {
+        "level": 3,
+        "cost": 25000,
+        "damage": 100,
+        "range": 22,
+        "fireRate": 1.4
+      },
+      {
+        "level": 4,
+        "cost": 50000,
+        "damage": 115,
+        "range": 22,
+        "fireRate": 1.5
+      }
+    ]
+  },
+  {
+    "id": "mangle",
+    "name": "Mangle",
+    "capacity": 4,
+    "rarity": "Epic",
+    "type": "Pierce",
+    "obtainable": "Summon",
+    "added": "2026-09-11",
+    "addedUpdate": "SUMMONS UPDATE",
+    "image": "",
+    "levels": [
+      {
+        "level": 1,
+        "cost": 75,
+        "damage": 10,
+        "range": 6,
+        "fireRate": 1.1
+      },
+      {
+        "level": 2,
+        "cost": 250,
+        "damage": 13,
+        "range": 6,
+        "fireRate": 1.2
+      },
+      {
+        "level": 3,
+        "cost": 400,
+        "damage": 17,
+        "range": 7,
+        "fireRate": 1.2
+      },
+      {
+        "level": 4,
+        "cost": 1000,
+        "damage": 21,
+        "range": 7,
+        "fireRate": 1.3
+      },
+      {
+        "level": 5,
+        "cost": 1650,
+        "damage": 25,
+        "range": 8,
+        "fireRate": 1.3
+      }
+    ]
+  },
+  {
+    "id": "omc",
+    "name": "OMC",
+    "capacity": 1,
+    "rarity": "Epic",
+    "type": "Splash",
+    "obtainable": "Quest",
+    "added": "2026-10-07",
+    "addedUpdate": "WORKSHOP UPDATE",
+    "image": "",
+    "levels": [
+      {
+        "level": 1,
+        "cost": 2500,
+        "damage": 80,
+        "range": 14,
+        "fireRate": 1.3
+      },
+      {
+        "level": 2,
+        "cost": 5000,
+        "damage": 85,
+        "range": 15,
+        "fireRate": 1.4
+      },
+      {
+        "level": 3,
+        "cost": 10000,
+        "damage": 95,
+        "range": 16,
+        "fireRate": 1.4
+      },
+      {
+        "level": 4,
+        "cost": 25000,
+        "damage": 105,
+        "range": 17,
+        "fireRate": 1.5
+      }
+    ]
+  },
+  {
+    "id": "purple-guy",
+    "name": "Purple Guy",
+    "capacity": 4,
+    "rarity": "Epic",
+    "type": "Pierce",
+    "obtainable": "Quest",
+    "added": "2026-09-22",
+    "addedUpdate": "QUESTS UPDATE",
+    "image": "",
+    "levels": [
+      {
+        "level": 1,
+        "cost": 1000,
+        "damage": 80,
+        "range": 12,
+        "fireRate": 0.6
+      },
+      {
+        "level": 2,
+        "cost": 2500,
+        "damage": 90,
+        "range": 13,
+        "fireRate": 0.7
+      },
+      {
+        "level": 3,
+        "cost": 5000,
+        "damage": 100,
+        "range": 14,
+        "fireRate": 0.8
+      },
+      {
+        "level": 4,
+        "cost": 12500,
+        "damage": 110,
+        "range": 15,
+        "fireRate": 0.9
+      }
+    ]
+  },
+  {
+    "id": "radioactive-foxy",
+    "name": "Radioactive Foxy",
+    "capacity": 4,
+    "rarity": "Exclusive",
+    "type": "Toxic Pierce",
+    "obtainable": "Exclusive",
+    "added": "2026-10-07",
+    "addedUpdate": "WORKSHOP UPDATE",
+    "image": "",
+    "levels": [
+      {
+        "level": 1,
+        "cost": 1000,
+        "damage": 18,
+        "range": 7,
+        "fireRate": 2
+      },
+      {
+        "level": 2,
+        "cost": 2000,
+        "damage": 22,
+        "range": 8,
+        "fireRate": 2.1
+      },
+      {
+        "level": 3,
+        "cost": 5000,
+        "damage": 26,
+        "range": 9,
+        "fireRate": 2.2
+      }
+    ]
+  },
+  {
+    "id": "shadow-bonnie",
+    "name": "Shadow Bonnie",
+    "capacity": 2,
+    "rarity": "Legendary",
+    "type": "Single",
+    "obtainable": "Case",
+    "added": "2026-09-22",
+    "addedUpdate": "QUESTS UPDATE",
+    "image": "",
+    "levels": [
+      {
+        "level": 1,
+        "cost": 2500,
+        "damage": 105,
+        "range": 9,
+        "fireRate": 2
+      },
+      {
+        "level": 2,
+        "cost": 6000,
+        "damage": 125,
+        "range": 10,
+        "fireRate": 2.1
+      },
+      {
+        "level": 3,
+        "cost": 13500,
+        "damage": 150,
+        "range": 11,
+        "fireRate": 2.2
+      },
+      {
+        "level": 4,
+        "cost": 35000,
+        "damage": 185,
+        "range": 12,
+        "fireRate": 2.2
+      }
+    ]
+  },
+  {
+    "id": "shadow-freddy",
+    "name": "Shadow Freddy",
+    "capacity": 3,
+    "rarity": "Legendary",
+    "type": "Cone",
+    "obtainable": "Summon",
+    "added": "2026-10-07",
+    "addedUpdate": "WORKSHOP UPDATE",
+    "image": "",
+    "levels": [
+      {
+        "level": 1,
+        "cost": 2000,
+        "damage": 100,
+        "range": 14,
+        "fireRate": 1
+      },
+      {
+        "level": 2,
+        "cost": 4000,
+        "damage": 115,
+        "range": 16,
+        "fireRate": 1.1
+      },
+      {
+        "level": 3,
+        "cost": 8500,
+        "damage": 135,
+        "range": 18,
+        "fireRate": 1.2
+      },
+      {
+        "level": 4,
+        "cost": 18000,
+        "damage": 160,
+        "range": 20,
+        "fireRate": 1.2
+      }
+    ]
+  },
+  {
+    "id": "sparky",
+    "name": "Sparky",
+    "capacity": 3,
+    "rarity": "Exclusive",
+    "type": "Single",
+    "obtainable": "Exclusive",
+    "added": "2026-08-12",
+    "addedUpdate": "EXCLUSIVE UPDATE",
+    "image": "",
+    "levels": [
+      {
+        "level": 1,
+        "cost": 75,
+        "damage": 10,
+        "range": 4.5,
+        "fireRate": 1.5
+      },
+      {
+        "level": 2,
+        "cost": 300,
+        "damage": 15,
+        "range": 5,
+        "fireRate": 1.5
+      },
+      {
+        "level": 3,
+        "cost": 900,
+        "damage": 20,
+        "range": 5,
+        "fireRate": 1.6
+      },
+      {
+        "level": 4,
+        "cost": 1500,
+        "damage": 25,
+        "range": 5.5,
+        "fireRate": 1.6
+      },
+      {
+        "level": 5,
+        "cost": 2500,
+        "damage": 30,
+        "range": 6,
+        "fireRate": 1.7
+      }
+    ]
+  },
+  {
+    "id": "the-marionette",
+    "name": "The Marionette",
+    "capacity": 1,
+    "rarity": "Legendary",
+    "type": "Splash",
+    "obtainable": "Summon",
+    "added": "2026-09-11",
+    "addedUpdate": "SUMMONS UPDATE",
+    "image": "",
+    "levels": [
+      {
+        "level": 1,
+        "cost": 5000,
+        "damage": 200,
+        "range": 23,
+        "fireRate": 0.8
+      },
+      {
+        "level": 2,
+        "cost": 10000,
+        "damage": 210,
+        "range": 23,
+        "fireRate": 0.8
+      },
+      {
+        "level": 3,
+        "cost": 20000,
+        "damage": 230,
+        "range": 24,
+        "fireRate": 0.9
+      },
+      {
+        "level": 4,
+        "cost": 30000,
+        "damage": 260,
+        "range": 24,
+        "fireRate": 0.9
+      },
+      {
+        "level": 5,
+        "cost": 65000,
+        "damage": 300,
+        "range": 25,
+        "fireRate": 1
+      }
+    ]
+  },
+  {
+    "id": "toy-bonnie",
+    "name": "Toy Bonnie",
+    "capacity": 4,
+    "rarity": "Uncommon",
+    "type": "Single",
+    "obtainable": "Summon",
+    "added": "2026-09-11",
+    "addedUpdate": "SUMMONS UPDATE",
+    "image": "",
+    "levels": [
+      {
+        "level": 1,
+        "cost": 600,
+        "damage": 13,
+        "range": 9,
+        "fireRate": 2
+      },
+      {
+        "level": 2,
+        "cost": 900,
+        "damage": 14,
+        "range": 10,
+        "fireRate": 2.1
+      },
+      {
+        "level": 3,
+        "cost": 1600,
+        "damage": 15,
+        "range": 12,
+        "fireRate": 2.2
+      }
+    ]
+  },
+  {
+    "id": "toy-chica",
+    "name": "Toy Chica",
+    "capacity": 2,
+    "rarity": "Rare",
+    "type": "Cone",
+    "obtainable": "Summon",
+    "added": "2026-09-11",
+    "addedUpdate": "SUMMONS UPDATE",
+    "image": "",
+    "levels": [
+      {
+        "level": 1,
+        "cost": 750,
+        "damage": 25,
+        "range": 9,
+        "fireRate": 0.6
+      },
+      {
+        "level": 2,
+        "cost": 1500,
+        "damage": 27,
+        "range": 9,
+        "fireRate": 0.7
+      },
+      {
+        "level": 3,
+        "cost": 2250,
+        "damage": 31,
+        "range": 10,
+        "fireRate": 0.8
+      },
+      {
+        "level": 4,
+        "cost": 4000,
+        "damage": 35,
+        "range": 11,
+        "fireRate": 0.9
+      }
+    ]
+  },
+  {
+    "id": "toy-freddy",
+    "name": "Toy Freddy",
+    "capacity": 2,
+    "rarity": "Common",
+    "type": "Single",
+    "obtainable": "Summon",
+    "added": "2026-09-11",
+    "addedUpdate": "SUMMONS UPDATE",
+    "image": "",
+    "levels": [
+      {
+        "level": 1,
+        "cost": 350,
+        "damage": 20,
+        "range": 7,
+        "fireRate": 1
+      },
+      {
+        "level": 2,
+        "cost": 500,
+        "damage": 22,
+        "range": 8,
+        "fireRate": 1.1
+      },
+      {
+        "level": 3,
+        "cost": 800,
+        "damage": 25,
+        "range": 9,
+        "fireRate": 1.2
+      }
+    ]
+  },
+  {
+    "id": "withered-bonnie",
+    "name": "Withered Bonnie",
+    "capacity": 2,
+    "rarity": "Rare",
+    "type": "Splash",
+    "obtainable": "Summon",
+    "added": "2026-10-07",
+    "addedUpdate": "WORKSHOP UPDATE",
+    "image": "",
+    "levels": [
+      {
+        "level": 1,
+        "cost": 1250,
+        "damage": 30,
+        "range": 12,
+        "fireRate": 1
+      },
+      {
+        "level": 2,
+        "cost": 2500,
+        "damage": 33,
+        "range": 13,
+        "fireRate": 1.1
+      },
+      {
+        "level": 3,
+        "cost": 5000,
+        "damage": 36,
+        "range": 14,
+        "fireRate": 1.2
+      },
+      {
+        "level": 4,
+        "cost": 10000,
+        "damage": 40,
+        "range": 15,
+        "fireRate": 1.3
+      }
+    ]
+  },
+  {
+    "id": "withered-chica",
+    "name": "Withered Chica",
+    "capacity": 2,
+    "rarity": "Uncommon",
+    "type": "Range Buff",
+    "obtainable": "Summon",
+    "added": "2026-10-07",
+    "addedUpdate": "WORKSHOP UPDATE",
+    "image": "",
+    "levels": [
+      {
+        "level": 1,
+        "cost": 400,
+        "damage": 1.05,
+        "range": 12,
+        "fireRate": 1
+      },
+      {
+        "level": 2,
+        "cost": 800,
+        "damage": 1.08,
+        "range": 13,
+        "fireRate": 1
+      },
+      {
+        "level": 3,
+        "cost": 1600,
+        "damage": 1.11,
+        "range": 14,
+        "fireRate": 1
+      },
+      {
+        "level": 4,
+        "cost": 3500,
+        "damage": 1.15,
+        "range": 15,
+        "fireRate": 1
+      }
+    ]
+  },
+  {
+    "id": "withered-foxy",
+    "name": "Withered Foxy",
+    "capacity": 4,
+    "rarity": "Epic",
+    "type": "Cone",
+    "obtainable": "Summon",
+    "added": "2026-10-07",
+    "addedUpdate": "WORKSHOP UPDATE",
+    "image": "",
+    "levels": [
+      {
+        "level": 1,
+        "cost": 900,
+        "damage": 25,
+        "range": 7,
+        "fireRate": 1.3
+      },
+      {
+        "level": 2,
+        "cost": 1800,
+        "damage": 30,
+        "range": 8,
+        "fireRate": 1.4
+      },
+      {
+        "level": 3,
+        "cost": 4000,
+        "damage": 40,
+        "range": 9,
+        "fireRate": 1.4
+      },
+      {
+        "level": 4,
+        "cost": 9000,
+        "damage": 50,
+        "range": 10,
+        "fireRate": 1.5
+      }
+    ]
+  },
+  {
+    "id": "withered-freddy",
+    "name": "Withered Freddy",
+    "capacity": 2,
+    "rarity": "Rare",
+    "type": "AOE",
+    "obtainable": "Summon",
+    "added": "2026-10-07",
+    "addedUpdate": "WORKSHOP UPDATE",
+    "image": "",
+    "levels": [
+      {
+        "level": 1,
+        "cost": 800,
+        "damage": 20,
+        "range": 12,
+        "fireRate": 1.1
+      },
+      {
+        "level": 2,
+        "cost": 1600,
+        "damage": 22,
+        "range": 13,
+        "fireRate": 1.2
+      },
+      {
+        "level": 3,
+        "cost": 2400,
+        "damage": 25,
+        "range": 14,
+        "fireRate": 1.2
+      },
+      {
+        "level": 4,
+        "cost": 4000,
+        "damage": 30,
+        "range": 15,
+        "fireRate": 1.3
+      }
+    ]
   }
 ]

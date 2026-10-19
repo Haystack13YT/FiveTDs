@@ -1,80 +1,56 @@
-# Editing the Five TD's website
+# Five TD’s website — editing guide
 
-This site has four main sections: **Home**, **Units**, **Levels**, and **Updates**.
+## Units
+Edit `src/data/units.json`. **Each unit is one object in the JSON list.** Copy an existing unit object, paste it before the closing `]`, and separate objects with commas. Keep `id` unique and lowercase with hyphens.
 
-## Adding a unit (no React editing needed)
-
-1. Open `src/data/units.json` in VS Code.
-2. Copy one existing unit object, including its opening `{` and closing `}`.
-3. Add a comma between objects. Set a **unique** `id` such as `freddy` (lowercase letters and hyphens are best).
-4. Edit `name`, `rarity`, `type`, `damage`, `fireRate`, `range`, `cost`, `capacity`, `description`, and `obtainable`.
-5. Save. The unit will automatically appear on the Units page, in search/filter results, and have its own details page.
-
-Example:
+Example (shape only; numbers are illustrative):
 
 ```json
 {
-  "id": "example-unit",
-  "name": "Example Unit",
+  "id": "new-unit",
+  "name": "New Unit",
   "rarity": "Rare",
-  "type": "Splash",
-  "description": "Example description.",
-  "image": "units/example-unit.png",
-  "damage": 25,
-  "fireRate": 1.5,
-  "range": 18,
-  "cost": 450,
-  "capacity": 4,
+  "type": "Single",
+  "image": "units/new-unit.png",
+  "capacity": 2,
   "obtainable": "Summon",
-  "upgrades": [
-    { "level": 2, "damage": 40, "fireRate": 1.5, "range": 20, "cost": 300 }
+  "added": "2026-10-18",
+  "addedUpdate": "EXAMPLE UPDATE",
+  "levels": [
+    { "level": 1, "cost": 100, "damage": 10, "range": 8, "fireRate": 1 },
+    { "level": 2, "cost": 200, "damage": 15, "range": 9, "fireRate": 1.1 }
   ]
 }
 ```
 
-**Images:** Add `example-unit.png` to `public/units/`. Create that folder if needed. In JSON use `"image": "units/example-unit.png"`. Leave it as `""` to display the placeholder icon.
+Add **as many levels as that unit actually has**, beginning with level 1. `cost` on level 1 is its placement cost; later costs are the corresponding level costs. `damage` can represent a multiplier for buff/debuff units; check the data notes below. No description or upgrades property is required.
 
-**Unknown stats:** Set numerical values to `null`, instead of inventing numbers. **Rarities:** `Common`, `Uncommon`, `Rare`, `Epic`, `Legendary` have built-in colors. New rarity names also display.
+Put art in `public/units/` and set the unit's `image` to `units/filename.png` (not `public/units/...`). Leave `image` as `""` for a placeholder. Images also work after GitHub Pages deployment.
 
-## Adding a level
+## Levels
+Edit `src/data/levels.json`. Put screenshots in `public/levels/` and set each image as `levels/filename.png`. The existing Levels page is unchanged.
 
-Edit `src/data/levels.json`. Copy an existing level entry. Give it a unique `id` and set name, chapter, description, difficulties, waves, boss, and optionally an image under `public/`.
+## Features
+Edit `src/data/features.json`: every entry uses `id`, `title`, `category`, `summary`, `details` (list of strings), and `image`. Feature screenshots go in `public/features/` as `features/filename.png`. This replaces the former Updates page. Current feature content is deliberately introductory/placeholder copy.
 
-## Posting an update
+## Preview changes locally
+Open a VS Code terminal in the project directory and run `npm.cmd run dev`. Open the displayed localhost URL. Save any edited files with Ctrl+S; the site updates in the browser. This **does not publish** changes.
 
-Edit `src/data/updates.json`. To add the first update, replace `[]` with:
-
-```json
-[
-  {
-    "id": "launch-notes",
-    "title": "Website Launch",
-    "date": "2026-10-18",
-    "summary": "Our website is live!",
-    "changes": ["Launched the wiki", "Added unit browsing"]
-  }
-]
-```
-
-Add future updates as additional objects with commas between entries. Put the newest update first; it is shown on the Home page.
-
-## Run locally
+## Publish only when you decide
+From a separate VS Code terminal (same project folder), run these commands one at a time:
 
 ```powershell
-npm.cmd install
-npm.cmd run dev
-```
-
-## Publish changes
-
-```powershell
+npm.cmd run build
+git status
 git add .
-git commit -m "Update Five TDs website"
+git commit -m "Update Five TDs content"
 git push
 ```
 
-GitHub Actions will build and publish to `https://haystack13yt.github.io/FiveTDs/`.
+`npm.cmd run build` should finish successfully before committing. `git push` uploads your committed changes to the `main` branch; the existing GitHub Actions Pages workflow deploys them automatically. Check the Actions tab and then `https://haystack13yt.github.io/FiveTDs/`. If Git says there is nothing to commit, nothing changed or you forgot to save. **Do not push** until you are ready for public updates.
 
-## Roblox statistics
-
-The homepage deliberately displays em dashes (`—`) because live Roblox statistics need a reliable API proxy. It does **not** show invented numbers. We can connect a Cloudflare Worker in the next stage.
+## Data questions to verify in Roblox Studio
+- Endo 02: `damage` contains `0.90 → 0.8` and is displayed as a **speed multiplier**, not direct damage.
+- Withered Chica: `damage` contains `1.05 → 1.15` and is displayed as a **range multiplier**, not direct damage.
+- The supplied **Fire Rate** values are displayed exactly as supplied; confirm whether the game labels them attacks/sec or seconds/attack.
+- Multi-level **Cost** values are stored as given, with the first as placement cost and the rest as level costs; confirm if they are incremental or cumulative.

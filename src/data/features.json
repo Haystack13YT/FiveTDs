@@ -1,0 +1,68 @@
+[
+  {
+    "id": "summoning",
+    "title": "Summoning",
+    "category": "Units",
+    "summary": "Discover and obtain units through the summon system.",
+    "details": [
+      "Browse the available unit pool.",
+      "Equip the units you obtain into your loadout."
+    ],
+    "image": ""
+  },
+  {
+    "id": "upgrading",
+    "title": "Unit Upgrading",
+    "category": "Gameplay",
+    "summary": "Improve placed units during a match.",
+    "details": [
+      "Each unit has its own level count and per-level statistics.",
+      "Compare cost, damage, range, and fire rate in the Units database."
+    ],
+    "image": ""
+  },
+  {
+    "id": "difficulties",
+    "title": "Difficulties & Levels",
+    "category": "Gameplay",
+    "summary": "Choose a level and difficulty before defending against waves.",
+    "details": [
+      "View the available stages in the Levels section.",
+      "Face tougher enemies as you progress."
+    ],
+    "image": ""
+  },
+  {
+    "id": "quests",
+    "title": "Quests",
+    "category": "Progression",
+    "summary": "Take on quests as an additional way to earn rewards.",
+    "details": [
+      "Some units are listed as obtainable through quests.",
+      "More specific quest information can be added here later."
+    ],
+    "image": ""
+  },
+  {
+    "id": "endless",
+    "title": "Endless Mode",
+    "category": "Gameplay",
+    "summary": "An additional mode for players who want to keep defending.",
+    "details": [
+      "Endless is listed as an obtainment method for some units.",
+      "Specific rules and rewards can be documented later."
+    ],
+    "image": ""
+  },
+  {
+    "id": "loadouts",
+    "title": "Loadouts",
+    "category": "Units",
+    "summary": "Choose which units to bring into your next match.",
+    "details": [
+      "Organize a team of units before playing.",
+      "Change your loadout as you unlock more units."
+    ],
+    "image": ""
+  }
+]
