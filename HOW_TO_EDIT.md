@@ -27,8 +27,25 @@ Add **as many levels as that unit actually has**, beginning with level 1. `cost`
 
 Put art in `public/units/` and set the unit's `image` to `units/filename.png` (not `public/units/...`). Leave `image` as `""` for a placeholder. Images also work after GitHub Pages deployment.
 
-## Levels
-Edit `src/data/levels.json`. Put screenshots in `public/levels/` and set each image as `levels/filename.png`. The existing Levels page is unchanged.
+## Levels and chapters
+Edit `src/data/levels.json`. The root has a `chapters` array. Each chapter includes its numeric `id`, `name`, `added`, `addedUpdate`, a `levels` array, and optionally an `endless` object (or `null` when the chapter has no Endless mode).
+
+A standard level looks like:
+```json
+{
+  "number": 12,
+  "name": "Example Stage",
+  "waves": 20,
+  "boss": "Example Boss",
+  "normal": {"fazCoins": 100, "remnant": [5, 6], "startingMoney": 400},
+  "max": {"fazCoins": 150, "remnant": [6, 7], "startingMoney": 800}
+}
+```
+The two Remnant numbers define a range. Use `[2,2]` for a fixed reward of two. Use `"boss": null` when there is no boss. Difficulty selection is shared across the level list and its detail pages and defaults to Normal on a fresh page load. Wave counts and boss are shared by both modes.
+
+For Endless, `startingMoney.normal` and `startingMoney.max` differ but rewards are shared. `fazCoinsEveryTenWaves` contains rewards for waves 10 through 100; `fazCoinsAfterWave100` is paid every 10 waves starting at wave 110; `remnantEveryTenWaves` is a randomized inclusive range; `unitId` references an entry in `units.json` (its unit image is displayed automatically); `bosses` is a list of boss names.
+
+To add Chapter 2, copy an existing chapter object inside the `chapters` array, change its `id` to 2 and its `name`, dates and level list. Use `"endless": null` if there is no Endless mode for the new chapter. No React edits required.
 
 ## Features
 Edit `src/data/features.json`: every entry uses `id`, `title`, `category`, `summary`, `details` (list of strings), and `image`. Feature screenshots go in `public/features/` as `features/filename.png`. This replaces the former Updates page. Current feature content is deliberately introductory/placeholder copy.
@@ -52,5 +69,5 @@ git push
 ## Data questions to verify in Roblox Studio
 - Endo 02: `damage` contains `0.90 → 0.8` and is displayed as a **speed multiplier**, not direct damage.
 - Withered Chica: `damage` contains `1.05 → 1.15` and is displayed as a **range multiplier**, not direct damage.
-- The supplied **Fire Rate** values are displayed exactly as supplied; confirm whether the game labels them attacks/sec or seconds/attack.
+- **Fire Rate** is hits per second. Higher values mean faster attacks.
 - Multi-level **Cost** values are stored as given, with the first as placement cost and the rest as level costs; confirm if they are incremental or cumulative.

@@ -10,3 +10,26 @@
 .table-caption{font-size:12px;color:var(--muted);margin:17px 0 0}
 @media(max-width:960px){.feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.feature-grid{grid-template-columns:1fr}}
+
+/* Chapter levels: difficulty selection and detail pages */
+.difficulty-toggle{display:flex;align-items:center;justify-content:flex-start;gap:18px;margin:26px 0 38px;flex-wrap:wrap}
+.difficulty-label{font-size:11px;font-weight:900;letter-spacing:.15em}
+.difficulty-options{display:inline-flex;border:1px solid #42566a;background:#101b27;padding:4px;gap:5px}
+.difficulty-options button{border:0;background:transparent;color:#c0cddd;min-height:40px;min-width:100px;padding:9px 18px;font-size:12px;font-weight:900;letter-spacing:.11em}
+.difficulty-options button.selected{background:var(--yellow);color:#172231}
+.chapter-section{margin-top:28px;margin-bottom:65px}.chapter-heading h2{margin-bottom:10px}.chapter-heading .muted{font-size:13px}
+.level-card-button{color:var(--white);text-align:left;width:100%;cursor:pointer;transition:transform .15s,border-color .15s}
+.level-card-button:hover{transform:translateY(-3px);border-color:var(--yellow)}
+.level-card-top{min-height:100px;background:linear-gradient(125deg,#293c4c,#182634);padding:18px 25px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #344c61;gap:12px}
+.level-number{font:900 58px/.95 'Barlow Condensed',Impact,sans-serif;color:var(--yellow)}
+.level-card-button .level-info{padding:22px 25px}.level-card-button .level-info h3{margin-bottom:8px}
+.level-card-button .level-info p{margin-bottom:0}.level-card-button .level-meta{flex-wrap:wrap;margin-top:19px;gap:12px}.level-go{margin-left:auto}
+.endless-card .level-card-top{background:linear-gradient(115deg,#3e3550,#1d2838)}
+.level-facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px;margin:20px 0 28px}.level-facts .stat{background:#192634;border:1px solid #37485b;padding:20px 16px;min-width:0}.level-facts .stat-number{font-size:30px}
+.level-detail-main{margin-top:32px}.level-detail-main .unit-extra{border-top:1px solid #354356;padding-top:20px;margin-bottom:0}
+.endless-detail{display:grid;gap:22px;margin-top:30px}.endless-detail .table-panel{margin-top:0}.endless-facts{grid-template-columns:repeat(3,minmax(0,1fr));margin:0}
+.endless-unit-link{display:flex;align-items:center;gap:22px;border:1px solid #35465a;background:#192735;color:white;text-align:left;padding:12px;min-width:0}
+.endless-unit-link .unit-art{width:155px;height:120px;flex-shrink:0}.endless-unit-link strong{font:800 28px 'Barlow Condensed',Impact,sans-serif;display:block}.endless-unit-link small{color:var(--yellow);font-weight:900}
+.endless-boss-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 28px;padding-left:22px;color:#d5e0ed;line-height:1.6}
+@media(max-width:720px){.level-facts{grid-template-columns:repeat(2,minmax(0,1fr))}.endless-facts{grid-template-columns:repeat(2,minmax(0,1fr))}.level-facts .stat-number{font-size:26px}}
+@media(max-width:410px){.endless-boss-list{grid-template-columns:1fr}.endless-unit-link .unit-art{width:115px;height:105px}}

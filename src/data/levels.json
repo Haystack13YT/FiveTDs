@@ -1,22 +1,31 @@
-[
-  {
-    "id": "level-1",
-    "name": "Level 1",
-    "chapter": "Chapter 1",
-    "description": "Add the map name, waves, enemies and rewards when ready.",
-    "image": "",
-    "difficulties": ["Easy", "Hard"],
-    "waves": null,
-    "boss": ""
-  },
-  {
-    "id": "level-2",
-    "name": "Level 2",
-    "chapter": "Chapter 1",
-    "description": "Add the map name, waves, enemies and rewards when ready.",
-    "image": "",
-    "difficulties": ["Easy", "Hard"],
-    "waves": null,
-    "boss": ""
-  }
-]
+{
+  "chapters": [
+    {
+      "id": 1,
+      "name": "Freddy Fazbear's",
+      "added": "2026-08-09",
+      "addedUpdate": "EA RELEASE",
+      "levels": [
+        {"number": 1, "name": "East Corner", "waves": 10, "boss": null, "normal": {"fazCoins": 50, "remnant": [1,1], "startingMoney": 50}, "max": {"fazCoins": 75, "remnant": [1,2], "startingMoney": 100}},
+        {"number": 2, "name": "West Corner", "waves": 10, "boss": null, "normal": {"fazCoins": 50, "remnant": [1,1], "startingMoney": 50}, "max": {"fazCoins": 75, "remnant": [1,2], "startingMoney": 100}},
+        {"number": 3, "name": "East Hall", "waves": 10, "boss": null, "normal": {"fazCoins": 55, "remnant": [1,2], "startingMoney": 100}, "max": {"fazCoins": 83, "remnant": [2,2], "startingMoney": 200}},
+        {"number": 4, "name": "West Hall", "waves": 10, "boss": null, "normal": {"fazCoins": 55, "remnant": [1,2], "startingMoney": 100}, "max": {"fazCoins": 83, "remnant": [2,2], "startingMoney": 200}},
+        {"number": 5, "name": "Supply Closet", "waves": 10, "boss": null, "normal": {"fazCoins": 55, "remnant": [2,2], "startingMoney": 100}, "max": {"fazCoins": 83, "remnant": [2,3], "startingMoney": 200}},
+        {"number": 6, "name": "Dining Area", "waves": 15, "boss": "Upgraded Endo", "normal": {"fazCoins": 60, "remnant": [3,3], "startingMoney": 150}, "max": {"fazCoins": 90, "remnant": [3,4], "startingMoney": 300}},
+        {"number": 7, "name": "Kitchen", "waves": 15, "boss": "Chupcake", "normal": {"fazCoins": 55, "remnant": [3,3], "startingMoney": 150}, "max": {"fazCoins": 83, "remnant": [3,4], "startingMoney": 300}},
+        {"number": 8, "name": "Parts & Service", "waves": 15, "boss": "Reaper Bonnie", "normal": {"fazCoins": 65, "remnant": [4,4], "startingMoney": 200}, "max": {"fazCoins": 98, "remnant": [4,5], "startingMoney": 400}},
+        {"number": 9, "name": "Pirate Cove", "waves": 15, "boss": "Swiper Foxy", "normal": {"fazCoins": 65, "remnant": [4,4], "startingMoney": 150}, "max": {"fazCoins": 98, "remnant": [4,5], "startingMoney": 300}},
+        {"number": 10, "name": "Restrooms", "waves": 15, "boss": "Fred Head", "normal": {"fazCoins": 70, "remnant": [4,5], "startingMoney": 150}, "max": {"fazCoins": 105, "remnant": [5,5], "startingMoney": 300}},
+        {"number": 11, "name": "Show Stage", "waves": 20, "boss": "Golden Freddy", "normal": {"fazCoins": 100, "remnant": [5,6], "startingMoney": 400}, "max": {"fazCoins": 150, "remnant": [6,7], "startingMoney": 800}}
+      ],
+      "endless": {
+        "startingMoney": {"normal": 150, "max": 300},
+        "fazCoinsEveryTenWaves": [50,60,70,75,80,85,90,90,95,95],
+        "fazCoinsAfterWave100": 100,
+        "remnantEveryTenWaves": [1,7],
+        "unitId": "chupcake",
+        "bosses": ["Upgraded Endo", "Chupcake", "Reaper Bonnie", "Swiper Foxy", "Fred Head", "Golden Freddy"]
+      }
+    }
+  ]
+}

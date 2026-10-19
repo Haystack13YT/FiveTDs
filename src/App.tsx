@@ -10,13 +10,15 @@ type Unit = {
   capacity: number; obtainable: string; added: string; addedUpdate: string
   levels: UnitLevel[]
 }
-type Level = {
-  id: string; name: string; chapter: string; description: string; image: string
-  difficulties: string[]; waves: number | null; boss: string
-}
+type Difficulty = 'normal' | 'max'
+type RewardValues = { fazCoins: number; remnant: [number, number]; startingMoney: number }
+type StoryLevel = { number: number; name: string; waves: number; boss: string | null; normal: RewardValues; max: RewardValues }
+type EndlessLevel = { startingMoney: Record<Difficulty, number>; fazCoinsEveryTenWaves: number[]; fazCoinsAfterWave100: number; remnantEveryTenWaves: [number, number]; unitId: string; bosses: string[] }
+type Chapter = { id: number; name: string; added: string; addedUpdate: string; levels: StoryLevel[]; endless: EndlessLevel | null }
+type LevelsDatabase = { chapters: Chapter[] }
 type Feature = { id: string; title: string; category: string; summary: string; details: string[]; image: string }
 const units = unitsData as Unit[]
-const levels = levelsData as Level[]
+const levels = levelsData as LevelsDatabase
 const features = featuresData as Feature[]
 const gameUrl = 'https://www.roblox.com/games/119232593159524/Five-TDs'
 const links = [
@@ -104,7 +106,62 @@ function UnitDetails({ id }: { id: string }) {
     </div>
   </div>
 }
-function Levels() { return <div className="container page-content"><SectionHeader eyebrow="THE DATABASE / 02" title="Levels" detail="Study each stage before the next wave arrives."/><div className="level-grid">{levels.map((level, i) => <article className="level-card" key={level.id}><div className="level-image">{level.image ? <img src={`${import.meta.env.BASE_URL}${level.image.replace(/^\//, '')}`} alt={level.name} /> : <span className="level-numeral">{String(i + 1).padStart(2, '0')}</span>}<span className="level-chip">{level.chapter}</span></div><div className="level-info"><h3>{level.name}</h3><p className="muted">{level.description}</p><div className="level-meta"><span>{level.difficulties.join(' / ')}</span><span>{level.waves !== null ? `${level.waves} WAVES` : 'WAVES TBD'}</span></div></div></article>)}</div></div> }
+function RangeValue({ bounds }: { bounds: [number, number] }) {
+  return <>{bounds[0] === bounds[1] ? bounds[0] : `${bounds[0]}–${bounds[1]}`}</>
+}
+function DifficultyToggle({ difficulty, onChange }: { difficulty: Difficulty; onChange: (value: Difficulty) => void }) {
+  return <div className="difficulty-toggle" aria-label="Level difficulty"><span className="muted difficulty-label">DIFFICULTY</span>
+    <div className="difficulty-options" role="group" aria-label="Choose difficulty">
+      <button type="button" aria-pressed={difficulty === 'normal'} className={difficulty === 'normal' ? 'selected' : ''} onClick={() => onChange('normal')}>NORMAL</button>
+      <button type="button" aria-pressed={difficulty === 'max'} className={difficulty === 'max' ? 'selected' : ''} onClick={() => onChange('max')}>MAX</button>
+    </div>
+  </div>
+}
+function Levels({ difficulty, onDifficultyChange }: { difficulty: Difficulty; onDifficultyChange: (value: Difficulty) => void }) {
+  return <div className="container page-content">
+    <SectionHeader eyebrow="THE DATABASE / 02" title="Levels" detail="Explore chapters, stages and their rewards." />
+    <DifficultyToggle difficulty={difficulty} onChange={onDifficultyChange} />
+    {levels.chapters.map(chapter => <section className="chapter-section" key={chapter.id}>
+      <div className="chapter-heading"><div><p className="eyebrow">CHAPTER {chapter.id}</p><h2>{chapter.name}</h2><p className="muted">Added {formatAdded(chapter.added)} · {chapter.addedUpdate} · {chapter.levels.length} levels</p></div></div>
+      <div className="level-grid">{chapter.levels.map(level => <button type="button" className="level-card level-card-button" key={level.number} onClick={() => navigate(`levels/${chapter.id}/${level.number}`)}>
+        <div className="level-card-top"><span className="level-number">{chapter.id}-{level.number}</span><span className="muted small">{level.waves} WAVES</span></div>
+        <div className="level-info"><h3>{level.name}</h3><p className="muted">Boss: {level.boss ?? 'None'}</p><div className="level-meta"><span>{level[difficulty].fazCoins} FAZCOINS</span><span><RangeValue bounds={level[difficulty].remnant} /> REMNANT</span><span className="level-go">VIEW →</span></div></div>
+      </button>)}
+      {chapter.endless && <button type="button" className="level-card level-card-button endless-card" onClick={() => navigate(`levels/${chapter.id}/endless`)}>
+        <div className="level-card-top"><span className="level-number">{chapter.id}-∞</span><span className="muted small">ENDLESS WAVES</span></div>
+        <div className="level-info"><h3>Endless</h3><p className="muted">Earn rewards every 10 waves.</p><div className="level-meta"><span>{chapter.endless.startingMoney[difficulty]} STARTING MONEY</span><span className="level-go">VIEW →</span></div></div>
+      </button>}</div>
+    </section>)}
+  </div>
+}
+function LevelDetails({ chapterId, levelId, difficulty, onDifficultyChange }: { chapterId: string; levelId: string; difficulty: Difficulty; onDifficultyChange: (value: Difficulty) => void }) {
+  const chapter = levels.chapters.find(c => String(c.id) === chapterId)
+  const stage = chapter?.levels.find(l => String(l.number) === levelId)
+  const endless = levelId === 'endless' ? chapter?.endless : null
+  if (!chapter || (!stage && !endless)) return <div className="container page-content"><p>Level not found.</p><button className="back-link" onClick={() => navigate('levels')}>← ALL LEVELS</button></div>
+  const unit = endless ? units.find(u => u.id === endless.unitId) : null
+  return <div className="container page-content">
+    <button className="back-link" onClick={() => navigate('levels')}>← ALL LEVELS</button>
+    <SectionHeader eyebrow={`CHAPTER ${chapter.id} / ${chapter.name.toUpperCase()}`} title={stage ? `${chapter.id}-${stage.number} · ${stage.name}` : `${chapter.id}-Endless`} />
+    <DifficultyToggle difficulty={difficulty} onChange={onDifficultyChange} />
+    {stage ? <div className="level-detail-panels">
+      <div className="table-panel level-detail-main"><h2>Level information</h2><div className="level-facts">
+        <Stat label="FAZCOINS" value={stage[difficulty].fazCoins.toLocaleString()} />
+        <Stat label="REMNANT" value={stage[difficulty].remnant[0] === stage[difficulty].remnant[1] ? String(stage[difficulty].remnant[0]) : stage[difficulty].remnant.join('–')} />
+        <Stat label="STARTING MONEY" value={stage[difficulty].startingMoney.toLocaleString()} />
+        <Stat label="WAVES" value={String(stage.waves)} />
+      </div><p className="unit-extra">Boss: <strong>{stage.boss ?? 'None'}</strong></p></div>
+    </div> : endless && <div className="endless-detail">
+      <div className="level-facts endless-facts"><Stat label="STARTING MONEY" value={endless.startingMoney[difficulty].toLocaleString()} /><Stat label="REMNANT / 10 WAVES" value={`${endless.remnantEveryTenWaves[0]}–${endless.remnantEveryTenWaves[1]}`} /><Stat label="WAVES" value="Unlimited" /></div>
+      <div className="table-panel"><h2>FazCoins by wave</h2><p className="muted">Awarded every 10 waves. Rewards are the same in Normal and MAX.</p><div className="table-scroll"><table><thead><tr><th>WAVE REACHED</th><th>FAZCOINS REWARDED</th></tr></thead><tbody>
+        {endless.fazCoinsEveryTenWaves.map((coins, i) => <tr key={i}><td>{(i + 1) * 10}</td><td>{coins.toLocaleString()}</td></tr>)}
+        <tr><td>110, 120, 130, …</td><td>{endless.fazCoinsAfterWave100.toLocaleString()} each 10 waves</td></tr>
+      </tbody></table></div><p className="table-caption">Remnant is randomly awarded within the listed range every 10 waves.</p></div>
+      <div className="table-panel"><h2>Possible unit reward</h2>{unit ? <button type="button" className="endless-unit-link" onClick={() => navigate(`units/${unit.id}`)}><UnitArt unit={unit} /><span><strong>{unit.name}</strong><small>VIEW UNIT →</small></span></button> : <p className="muted">{endless.unitId}</p>}</div>
+      <div className="table-panel"><h2>Bosses</h2><ul className="endless-boss-list">{endless.bosses.map(boss => <li key={boss}>{boss}</li>)}</ul></div>
+    </div>}
+  </div>
+}
 function Features() {
   return <div className="container page-content"><SectionHeader eyebrow="THE DATABASE / 03" title="Features" detail="A starting guide to Five TD's game systems. More detail can be added anytime." />
     <div className="feature-grid">{features.map(feature => <article className="feature-card" key={feature.id}>
@@ -116,12 +173,13 @@ function Features() {
 function App() {
   const [route, setRoute] = useState(getRoute)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [levelDifficulty, setLevelDifficulty] = useState<Difficulty>('normal')
   useEffect(() => {
     const onHash = () => { setRoute(getRoute()); setMobileOpen(false) }
     window.addEventListener('hashchange', onHash)
     return () => window.removeEventListener('hashchange', onHash)
   }, [])
   const current = route.split('/')[0]
-  return <div className="site"><header className="site-header"><div className="container header-inner"><a className="brand" href="#/home" aria-label="Five TD's home"><span className="brand-icon">5<span>✳</span></span><span>FIVE <b>TD'S</b><small>OFFICIAL WIKI</small></span></a><nav className={mobileOpen ? 'nav nav-open' : 'nav'} aria-label="Main navigation">{links.map(link => <a href={`#/${link.id}`} key={link.id} className={current === link.id ? 'active' : ''}>{link.title}</a>)}</nav><div className="header-actions"><a className="header-play" href={gameUrl} target="_blank" rel="noreferrer">PLAY GAME ↗</a><button className="mobile-toggle" aria-label={mobileOpen ? 'Close menu' : 'Open menu'} aria-expanded={mobileOpen} onClick={() => setMobileOpen(!mobileOpen)}>{mobileOpen ? '✕' : '☰'}</button></div></div></header><main>{route.startsWith('units/') ? <UnitDetails id={route.slice('units/'.length)} /> : current === 'units' ? <Units /> : current === 'levels' ? <Levels /> : current === 'features' ? <Features /> : <Home />}</main><footer className="footer"><div className="container footer-inner"><div><strong>FIVE <span>TD'S</span></strong><p>The community companion for Five TD's on Roblox.</p></div><div className="footer-links">{links.map(link => <a key={link.id} href={`#/${link.id}`}>{link.title}</a>)}</div><span className="muted small">© {new Date().getFullYear()} Five TD's</span></div></footer></div>
+  return <div className="site"><header className="site-header"><div className="container header-inner"><a className="brand" href="#/home" aria-label="Five TD's home"><span className="brand-icon">5<span>✳</span></span><span>FIVE <b>TD'S</b><small>OFFICIAL WIKI</small></span></a><nav className={mobileOpen ? 'nav nav-open' : 'nav'} aria-label="Main navigation">{links.map(link => <a href={`#/${link.id}`} key={link.id} className={current === link.id ? 'active' : ''}>{link.title}</a>)}</nav><div className="header-actions"><a className="header-play" href={gameUrl} target="_blank" rel="noreferrer">PLAY GAME ↗</a><button className="mobile-toggle" aria-label={mobileOpen ? 'Close menu' : 'Open menu'} aria-expanded={mobileOpen} onClick={() => setMobileOpen(!mobileOpen)}>{mobileOpen ? '✕' : '☰'}</button></div></div></header><main>{route.startsWith('units/') ? <UnitDetails id={route.slice('units/'.length)} /> : current === 'units' ? <Units /> : route.startsWith('levels/') ? <LevelDetails chapterId={route.split('/')[1]} levelId={route.split('/')[2]} difficulty={levelDifficulty} onDifficultyChange={setLevelDifficulty} /> : current === 'levels' ? <Levels difficulty={levelDifficulty} onDifficultyChange={setLevelDifficulty} /> : current === 'features' ? <Features /> : <Home />}</main><footer className="footer"><div className="container footer-inner"><div><strong>FIVE <span>TD'S</span></strong><p>The community companion for Five TD's on Roblox.</p></div><div className="footer-links">{links.map(link => <a key={link.id} href={`#/${link.id}`}>{link.title}</a>)}</div><span className="muted small">© {new Date().getFullYear()} Five TD's</span></div></footer></div>
 }
 export default App
