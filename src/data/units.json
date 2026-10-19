@@ -1,0 +1,17 @@
+[
+  {
+    "id": "noob",
+    "name": "Noob",
+    "rarity": "Common",
+    "type": "Single",
+    "description": "A straightforward starter unit. Replace this description with the official unit lore or strategy.",
+    "image": "",
+    "damage": 100,
+    "fireRate": 1,
+    "range": 15,
+    "cost": null,
+    "capacity": null,
+    "obtainable": "Summon",
+    "upgrades": []
+  }
+]
