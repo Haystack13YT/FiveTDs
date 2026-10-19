@@ -8,7 +8,7 @@
     "obtainable": "Exclusive",
     "added": "2026-08-26",
     "addedUpdate": "ENDLESS UPDATE",
-    "image": "",
+    "image": "units/AnimDudeIcon.png",
     "levels": [
       {
         "level": 1,
@@ -49,7 +49,7 @@
     "obtainable": "Summon",
     "added": "2026-09-11",
     "addedUpdate": "SUMMONS UPDATE",
-    "image": "",
+    "image": "units/BBIcon.png",
     "levels": [
       {
         "level": 1,
@@ -83,7 +83,7 @@
     "obtainable": "Exclusive",
     "added": "2026-09-22",
     "addedUpdate": "QUESTS UPDATE",
-    "image": "",
+    "image": "units/Bear5Icon.png",
     "levels": [
       {
         "level": 1,
@@ -124,7 +124,7 @@
     "obtainable": "Summon",
     "added": "2026-08-09",
     "addedUpdate": "EA RELEASE",
-    "image": "",
+    "image": "units/BonnieIcon.png",
     "levels": [
       {
         "level": 1,
@@ -165,7 +165,7 @@
     "obtainable": "Quest",
     "added": "2026-09-22",
     "addedUpdate": "QUESTS UPDATE",
-    "image": "",
+    "image": "units/CCIcon.png",
     "levels": [
       {
         "level": 1,
@@ -192,7 +192,7 @@
     "obtainable": "Summon",
     "added": "2026-08-09",
     "addedUpdate": "EA RELEASE",
-    "image": "",
+    "image": "units/ChicaIcon.png",
     "levels": [
       {
         "level": 1,
@@ -226,7 +226,7 @@
     "obtainable": "Endless",
     "added": "2026-08-26",
     "addedUpdate": "ENDLESS UPDATE",
-    "image": "",
+    "image": "units/ChupcakeIcon.png",
     "levels": [
       {
         "level": 1,
@@ -260,7 +260,7 @@
     "obtainable": "Starter",
     "added": "2026-08-09",
     "addedUpdate": "EA RELEASE",
-    "image": "",
+    "image": "units/Endo01Icon.png",
     "levels": [
       {
         "level": 1,
@@ -301,7 +301,7 @@
     "obtainable": "Summon",
     "added": "2026-10-07",
     "addedUpdate": "WORKSHOP UPDATE",
-    "image": "",
+    "image": "units/Endo02Icon.png",
     "levels": [
       {
         "level": 1,
@@ -342,7 +342,7 @@
     "obtainable": "Exclusive",
     "added": "2026-09-11",
     "addedUpdate": "SUMMONS UPDATE",
-    "image": "",
+    "image": "units/FastbearIcon.png",
     "levels": [
       {
         "level": 1,
@@ -383,7 +383,7 @@
     "obtainable": "Summon",
     "added": "2026-08-09",
     "addedUpdate": "EA RELEASE",
-    "image": "",
+    "image": "units/FoxyIcon.png",
     "levels": [
       {
         "level": 1,
@@ -417,7 +417,7 @@
     "obtainable": "Summon",
     "added": "2026-08-09",
     "addedUpdate": "EA RELEASE",
-    "image": "",
+    "image": "units/FreddyIcon.png",
     "levels": [
       {
         "level": 1,
@@ -458,7 +458,7 @@
     "obtainable": "Summon",
     "added": "2026-08-09",
     "addedUpdate": "EA RELEASE",
-    "image": "",
+    "image": "units/GoldenFreddyIcon.png",
     "levels": [
       {
         "level": 1,
@@ -499,7 +499,7 @@
     "obtainable": "Summon",
     "added": "2026-09-11",
     "addedUpdate": "SUMMONS UPDATE",
-    "image": "",
+    "image": "units/MangleIcon.png",
     "levels": [
       {
         "level": 1,
@@ -547,7 +547,7 @@
     "obtainable": "Quest",
     "added": "2026-10-07",
     "addedUpdate": "WORKSHOP UPDATE",
-    "image": "",
+    "image": "units/OMCIcon.png",
     "levels": [
       {
         "level": 1,
@@ -588,7 +588,7 @@
     "obtainable": "Quest",
     "added": "2026-09-22",
     "addedUpdate": "QUESTS UPDATE",
-    "image": "",
+    "image": "units/PurpleGuyIcon.png",
     "levels": [
       {
         "level": 1,
@@ -629,7 +629,7 @@
     "obtainable": "Exclusive",
     "added": "2026-10-07",
     "addedUpdate": "WORKSHOP UPDATE",
-    "image": "",
+    "image": "units/RadioactiveFoxyIcon.png",
     "levels": [
       {
         "level": 1,
@@ -663,7 +663,7 @@
     "obtainable": "Case",
     "added": "2026-09-22",
     "addedUpdate": "QUESTS UPDATE",
-    "image": "",
+    "image": "units/ShadowBonnieIcon.png",
     "levels": [
       {
         "level": 1,
@@ -704,7 +704,7 @@
     "obtainable": "Summon",
     "added": "2026-10-07",
     "addedUpdate": "WORKSHOP UPDATE",
-    "image": "",
+    "image": "units/ShadowFreddyIcon.png",
     "levels": [
       {
         "level": 1,
@@ -745,7 +745,7 @@
     "obtainable": "Exclusive",
     "added": "2026-08-12",
     "addedUpdate": "EXCLUSIVE UPDATE",
-    "image": "",
+    "image": "units/SparkyIcon.png",
     "levels": [
       {
         "level": 1,
@@ -793,7 +793,7 @@
     "obtainable": "Summon",
     "added": "2026-09-11",
     "addedUpdate": "SUMMONS UPDATE",
-    "image": "",
+    "image": "units/PuppetIcon.png",
     "levels": [
       {
         "level": 1,
@@ -841,7 +841,7 @@
     "obtainable": "Summon",
     "added": "2026-09-11",
     "addedUpdate": "SUMMONS UPDATE",
-    "image": "",
+    "image": "units/ToyBonnieIcon.png",
     "levels": [
       {
         "level": 1,
@@ -875,7 +875,7 @@
     "obtainable": "Summon",
     "added": "2026-09-11",
     "addedUpdate": "SUMMONS UPDATE",
-    "image": "",
+    "image": "units/ToyChicaIcon.png",
     "levels": [
       {
         "level": 1,
@@ -916,7 +916,7 @@
     "obtainable": "Summon",
     "added": "2026-09-11",
     "addedUpdate": "SUMMONS UPDATE",
-    "image": "",
+    "image": "units/ToyFreddyIcon.png",
     "levels": [
       {
         "level": 1,
@@ -950,7 +950,7 @@
     "obtainable": "Summon",
     "added": "2026-10-07",
     "addedUpdate": "WORKSHOP UPDATE",
-    "image": "",
+    "image": "units/WitheredBonnieIcon.png",
     "levels": [
       {
         "level": 1,
@@ -991,7 +991,7 @@
     "obtainable": "Summon",
     "added": "2026-10-07",
     "addedUpdate": "WORKSHOP UPDATE",
-    "image": "",
+    "image": "units/WitheredChicaIcon.png",
     "levels": [
       {
         "level": 1,
@@ -1032,7 +1032,7 @@
     "obtainable": "Summon",
     "added": "2026-10-07",
     "addedUpdate": "WORKSHOP UPDATE",
-    "image": "",
+    "image": "units/WitheredFoxyIcon.png",
     "levels": [
       {
         "level": 1,
@@ -1073,7 +1073,7 @@
     "obtainable": "Summon",
     "added": "2026-10-07",
     "addedUpdate": "WORKSHOP UPDATE",
-    "image": "",
+    "image": "units/WitheredFreddyIcon.png",
     "levels": [
       {
         "level": 1,
