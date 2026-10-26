@@ -40,3 +40,19 @@
 .endless-boss-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 28px;padding-left:22px;color:#d5e0ed;line-height:1.6}
 @media(max-width:720px){.level-facts{grid-template-columns:repeat(2,minmax(0,1fr))}.endless-facts{grid-template-columns:repeat(2,minmax(0,1fr))}.level-facts .stat-number{font-size:26px}}
 @media(max-width:410px){.endless-boss-list{grid-template-columns:1fr}.endless-unit-link .unit-art{width:115px;height:105px}}
+
+
+/* Live Roblox statistics */
+.stats-bar { flex-wrap: wrap; }
+.stats-bar .stat { min-width: 105px; }
+.stats-bar .stat-number { overflow-wrap: anywhere; }
+.stats-bar .stats-note { display: block; max-width: 178px; }
+@media (max-width: 1000px) {
+  .stats-bar .stats-note { max-width: none; flex-basis: 100%; text-align: left; }
+}
+@media (max-width: 720px) {
+  .stats-bar { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stats-bar .stats-intro { grid-column: 1 / -1; }
+  .stats-bar .stat { min-width: 0; }
+  .stats-bar .stats-note { grid-column: 1 / -1; }
+}

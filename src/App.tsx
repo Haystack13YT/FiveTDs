@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import unitsData from './data/units.json'
 import levelsData from './data/levels.json'
 import featuresData from './data/features.json'
+import RobloxStats from './components/RobloxStats'
 import './App.css'
 
 type UnitLevel = { level: number; cost: number; damage: number; fireRate: number; range: number }
@@ -68,7 +69,7 @@ function Home() {
       </div>
       <div className="hero-graphic" aria-label="Stylized tower defense illustration"><div className="graphic-grid" /><div className="orbit orbit-one" /><div className="orbit orbit-two" /><div className="center-cube">5<span>TD</span></div><div className="graphic-caption">DEFENSE SYSTEM // ONLINE</div><div className="corner-mark">✳</div></div>
     </section>
-    <section className="stats-wrap"><div className="container stats-bar"><div className="stats-intro"><span className="eyebrow">LIVE GAME DATA</span><strong>By the numbers</strong></div><Stat label="ACTIVE PLAYERS" value="—"/><Stat label="TOTAL VISITS" value="—"/><Stat label="FAVOURITES" value="—"/><div className="stats-note">Roblox stats integration<br/>coming soon</div></div></section>
+    <RobloxStats />
     <section className="container content-section"><SectionHeader eyebrow="THE ROSTER" title="Meet the units" detail="Find the right defense for every wave."/><div className="unit-grid">{units.slice(0, 4).map(u => <UnitCard key={u.id} unit={u} />)}<button className="explore-card" onClick={() => navigate('units')}><span>↗</span><strong>ALL UNITS</strong><small>VIEW DATABASE →</small></button></div></section>
     <section className="container home-lower"><div className="feature-panel"><p className="eyebrow">MAP INTEL</p><h2>Know your<br/><em>battlefield.</em></h2><p>Explore stages and difficulties before your next run.</p><button className="text-link" onClick={() => navigate('levels')}>VIEW LEVELS <span>→</span></button><div className="feature-decor">▦</div></div><div className="update-panel"><p className="eyebrow">GAME SYSTEMS</p><h2>Explore game<br/>features</h2><p>Learn about summons, quests, mods, AFK rewards and more in Five TD's.</p><button className="text-link" onClick={() => navigate('features')}>EXPLORE FEATURES <span>→</span></button><span className="update-panel-decor">✳</span></div></section>
   </>

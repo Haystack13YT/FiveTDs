@@ -92,3 +92,11 @@ git push
 - Withered Chica: `damage` contains `1.05 → 1.15` and is displayed as a **range multiplier**, not direct damage.
 - **Fire Rate** is hits per second. Higher values mean faster attacks.
 - Multi-level **Cost** values are stored as given, with the first as placement cost and the rest as level costs; confirm if they are incremental or cumulative.
+
+
+## Live Roblox statistics
+
+The Home page's statistics come from a Cloudflare Worker. See `ROBLOX_STATS_SETUP.md`
+for the setup steps. Change the Worker URL in `src/config.ts` if needed.
+The Worker source is stored in `worker/roblox-stats.js` so it can be
+maintained alongside the rest of your website.
