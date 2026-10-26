@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import unitsData from './data/units.json'
 import levelsData from './data/levels.json'
 import featuresData from './data/features.json'
@@ -18,181 +18,284 @@ type EndlessLevel = { startingMoney: Record<Difficulty, number>; fazCoinsEveryTe
 type Chapter = { id: number; name: string; added: string; addedUpdate: string; levels: StoryLevel[]; endless: EndlessLevel | null }
 type LevelsDatabase = { chapters: Chapter[] }
 type Feature = { id: string; title: string; image: string; accessed: string; added: string; addedUpdate?: string; details: string[] }
+
 const units = unitsData as Unit[]
 const levels = levelsData as LevelsDatabase
 const features = featuresData as Feature[]
 const gameUrl = 'https://www.roblox.com/games/119232593159524/Five-TDs'
-const links = [
-  { id: 'home', title: 'Home' },
-  { id: 'units', title: 'Units' },
-  { id: 'levels', title: 'Levels' },
-  { id: 'features', title: 'Features' },
-]
+const baseUrl = import.meta.env.BASE_URL
+const asset = (path: string) => `${baseUrl}${path.replace(/^\//, '')}`
+const links = ['Home', 'Units', 'Levels', 'Features']
+const rarityOrder = ['Common', 'Uncommon', 'Rare', 'Epic', 'Exclusive', 'Legendary'] as const
 const rarityColor: Record<string, string> = {
-  Common: '#a7b7c9', Uncommon: '#65e7a5', Rare: '#60b8ff', Epic: '#c98cff', Legendary: '#ffcf65', Exclusive: '#fa8c79',
+  Common: '#a9b3c5', Uncommon: '#65cf9d', Rare: '#63a5ff', Epic: '#b58aff',
+  Exclusive: '#ee88b9', Legendary: '#ffce6a',
 }
 
 function getRoute() {
-  const hash = window.location.hash.replace(/^#\/?/, '')
-  return hash || 'home'
+  return window.location.hash.replace(/^#\/?/, '') || 'home'
 }
-function navigate(route: string) {
+function navigate(route: string, scroll = true) {
   window.location.hash = `/${route}`
-  window.scrollTo({ top: 0, behavior: 'smooth' })
-}
-function Stat({ label, value }: { label: string; value: string }) {
-  return <div className="stat"><span className="stat-number">{value}</span><span className="muted small">{label}</span></div>
-}
-function UnitArt({ unit, large = false }: { unit: Unit; large?: boolean }) {
-  return <div className={`unit-art ${large ? 'unit-art-large' : ''}`} style={{ '--rarity': rarityColor[unit.rarity] || '#a7b7c9' } as React.CSSProperties}>
-    {unit.image ? <img src={`${import.meta.env.BASE_URL}${unit.image.replace(/^\//, '')}`} alt={unit.name} /> : <span aria-hidden="true">◆</span>}
-  </div>
-}
-function UnitCard({ unit }: { unit: Unit }) {
-  return <button type="button" className="unit-card" onClick={() => navigate(`units/${unit.id}`)}>
-    <UnitArt unit={unit} />
-    <div className="unit-card-body"><span className="rarity" style={{ color: rarityColor[unit.rarity] || '#cbd5e1' }}>{unit.rarity}</span><h3>{unit.name}</h3><span className="muted small">{unit.type} · {unit.levels.length} levels</span></div>
-    <span className="card-arrow">↗</span>
-  </button>
-}
-function SectionHeader({ eyebrow, title, detail }: { eyebrow: string; title: string; detail?: string }) {
-  return <div className="section-heading"><div><p className="eyebrow">{eyebrow}</p><h2>{title}</h2></div>{detail && <p className="muted">{detail}</p>}</div>
-}
-function Home() {
-  return <>
-    <section className="hero container">
-      <div className="hero-copy"><div className="pill"><span className="live-dot" /> THE OFFICIAL GAME HUB</div>
-        <p className="eyebrow">DEFEND · DEPLOY · UPGRADE</p>
-        <h1>FIVE <em>TD'S</em><span className="title-spark">✳</span></h1>
-        <p className="hero-description">Explore units, maps, and game features. Find the information you need, then jump into the action on Roblox.</p>
-        <div className="hero-actions"><a className="btn btn-primary" href={gameUrl} target="_blank" rel="noreferrer">▶ &nbsp; PLAY ON ROBLOX <span>↗</span></a><button className="btn btn-outline" onClick={() => navigate('units')}>EXPLORE UNITS →</button></div>
-      </div>
-      <div className="hero-graphic" aria-label="Stylized tower defense illustration"><div className="graphic-grid" /><div className="orbit orbit-one" /><div className="orbit orbit-two" /><div className="center-cube">5<span>TD</span></div><div className="graphic-caption">DEFENSE SYSTEM // ONLINE</div><div className="corner-mark">✳</div></div>
-    </section>
-    <RobloxStats />
-    <section className="container content-section"><SectionHeader eyebrow="THE ROSTER" title="Meet the units" detail="Find the right defense for every wave."/><div className="unit-grid">{units.slice(0, 4).map(u => <UnitCard key={u.id} unit={u} />)}<button className="explore-card" onClick={() => navigate('units')}><span>↗</span><strong>ALL UNITS</strong><small>VIEW DATABASE →</small></button></div></section>
-    <section className="container home-lower"><div className="feature-panel"><p className="eyebrow">MAP INTEL</p><h2>Know your<br/><em>battlefield.</em></h2><p>Explore stages and difficulties before your next run.</p><button className="text-link" onClick={() => navigate('levels')}>VIEW LEVELS <span>→</span></button><div className="feature-decor">▦</div></div><div className="update-panel"><p className="eyebrow">GAME SYSTEMS</p><h2>Explore game<br/>features</h2><p>Learn about summons, quests, mods, AFK rewards and more in Five TD's.</p><button className="text-link" onClick={() => navigate('features')}>EXPLORE FEATURES <span>→</span></button><span className="update-panel-decor">✳</span></div></section>
-  </>
-}
-function Units() {
-  const [query, setQuery] = useState('')
-  const [rarity, setRarity] = useState('All')
-  const rarities = useMemo(() => ['All', ...new Set(units.map(u => u.rarity))], [])
-  const matches = units.filter(u => (rarity === 'All' || u.rarity === rarity) && `${u.name} ${u.type} ${u.obtainable}`.toLowerCase().includes(query.toLowerCase()))
-  return <div className="container page-content"><SectionHeader eyebrow="THE DATABASE / 01" title="Units" detail="Browse every unit in Five TD's."/><div className="filters"><label className="search-wrap"><span>⌕</span><input value={query} onChange={e => setQuery(e.target.value)} placeholder="Search units..." aria-label="Search units" /></label><select aria-label="Filter by rarity" value={rarity} onChange={e => setRarity(e.target.value)}>{rarities.map(r => <option key={r} value={r}>{r === 'All' ? 'All rarities' : r}</option>)}</select><span className="muted count">{matches.length} UNIT{matches.length === 1 ? '' : 'S'}</span></div><div className="unit-grid">{matches.map(u => <UnitCard key={u.id} unit={u} />)}</div>{!matches.length && <div className="empty-state">No units matched your search.</div>}</div>
+  if (scroll) window.scrollTo({ top: 0, behavior: 'instant' })
 }
 function formatAdded(value: string) {
   const [year, month, day] = value.split('-').map(Number)
-  return new Date(Date.UTC(year, month - 1, day)).toLocaleDateString('en-US', { timeZone: 'UTC', year: 'numeric', month: 'short', day: 'numeric' })
+  return new Date(Date.UTC(year, month - 1, day)).toLocaleDateString('en-US', {
+    timeZone: 'UTC', year: 'numeric', month: 'short', day: 'numeric',
+  })
 }
-function UnitDetails({ id }: { id: string }) {
-  const unit = units.find(u => u.id === id)
-  if (!unit) return <div className="container page-content"><p>Unit not found.</p><button className="text-link" onClick={() => navigate('units')}>← Back to units</button></div>
-  const base = unit.levels[0]
-  return <div className="container page-content">
-    <button className="back-link" onClick={() => navigate('units')}>← ALL UNITS</button>
-    <div className="detail-layout"><UnitArt unit={unit} large /><div className="detail-copy">
-      <p className="eyebrow">UNIT FILE / {unit.id.toUpperCase()}</p><h1>{unit.name}</h1>
-      <span className="rarity" style={{ color: rarityColor[unit.rarity] || '#cbd5e1' }}>{unit.rarity} · {unit.type}</span>
-      <div className="detail-stats"><Stat label="BASE DAMAGE / EFFECT" value={base.damage.toLocaleString()} /><Stat label="BASE FIRE RATE" value={base.fireRate.toString()} /><Stat label="BASE RANGE" value={base.range.toString()} /><Stat label="PLACEMENT COST" value={base.cost.toLocaleString()} /></div>
-      <p className="unit-extra">Capacity: <strong>{unit.capacity}</strong></p>
-      <p className="unit-extra">Obtainable: <strong>{unit.obtainable}</strong></p>
-      <p className="unit-extra">Added: <strong>{formatAdded(unit.added)} ({unit.addedUpdate})</strong></p>
-      <p className="unit-extra">Total levels: <strong>{unit.levels.length}</strong></p>
-    </div></div>
-    <div className="table-panel"><h2>Stats by level</h2>
-      <div className="table-scroll"><table><thead><tr><th>LEVEL</th><th>COST</th><th>{unit.type === 'Speed Debuff' ? 'SPEED MULTIPLIER' : unit.type === 'Range Buff' ? 'RANGE MULTIPLIER' : 'DAMAGE'}</th><th>RANGE</th><th>FIRE RATE</th></tr></thead>
-      <tbody>{unit.levels.map(l => <tr key={l.level}><td>{l.level}</td><td>{l.cost.toLocaleString()}</td><td>{l.damage}</td><td>{l.range}</td><td>{l.fireRate}</td></tr>)}</tbody></table></div>
-      <p className="table-caption">Level 1 cost is the initial placement cost. Later costs are listed exactly as provided.</p>
+function rangeLabel(bounds: [number, number]) {
+  return bounds[0] === bounds[1] ? String(bounds[0]) : `${bounds[0]}–${bounds[1]}`
+}
+function UnitArt({ unit, large = false }: { unit: Unit; large?: boolean }) {
+  return <span className={`unit-art ${large ? 'unit-art-large' : ''}`} style={{ '--rarity': rarityColor[unit.rarity] || '#a9b3c5' } as CSSProperties}>
+    {unit.image ? <img src={asset(unit.image)} alt="" loading={large ? 'eager' : 'lazy'} /> : <span className="no-image">{unit.name}</span>}
+  </span>
+}
+function PageTitle({ title, subtitle }: { title: string; subtitle?: string }) {
+  return <div className="page-heading"><h1>{title}</h1>{subtitle && <p>{subtitle}</p>}</div>
+}
+
+function Home() {
+  const featured = ['freddy', 'bonnie', 'chica', 'foxy', 'golden-freddy']
+    .map(id => units.find(unit => unit.id === id)).filter((unit): unit is Unit => Boolean(unit))
+  return <>
+    <section className="home-hero" aria-label="Five TD's">
+      <img className="home-hero-photo" src={asset('general/Thumbnail2.jpg')} alt="Five TD's game characters" />
+      <div className="home-hero-shade" />
+      <div className="home-hero-content container">
+        <img className="hero-logo" src={asset('general/Logo-Cropped.png')} alt="Five TD's" />
+        <p>The Five TD's companion site</p>
+        <a className="button button-primary" href={gameUrl} target="_blank" rel="noreferrer">Play on Roblox</a>
+      </div>
+    </section>
+    <RobloxStats />
+    <section className="container home-section">
+      <div className="simple-section-title"><h2>Explore the game</h2></div>
+      <div className="explore-grid">
+        <button type="button" className="explore-tile explore-units" onClick={() => navigate('units')}>
+          <span className="explore-unit-images" aria-hidden="true">
+            {featured.slice(0, 3).map(unit => <img key={unit.id} src={asset(unit.image)} alt="" />)}
+          </span>
+          <span className="explore-name">Units</span>
+        </button>
+        <button type="button" className="explore-tile" onClick={() => navigate('levels')}>
+          <img className="explore-cover" src={asset('general/Thumbnail1.jpg')} alt="" />
+          <span className="explore-name">Levels</span>
+        </button>
+        <button type="button" className="explore-tile" onClick={() => navigate('features')}>
+          <img className="explore-cover" src={asset('features/Summons.jpg')} alt="" />
+          <span className="explore-name">Features</span>
+        </button>
+      </div>
+    </section>
+    <section className="container home-section featured-section">
+      <div className="simple-section-title"><h2>Featured units</h2><button type="button" className="quiet-link" onClick={() => navigate('units')}>View all</button></div>
+      <div className="featured-units">
+        {featured.map(unit => <button key={unit.id} type="button" title={unit.name} aria-label={`View ${unit.name}`} onClick={() => navigate(`units/${unit.id}`)}>
+          <UnitArt unit={unit} />
+        </button>)}
+      </div>
+    </section>
+  </>
+}
+
+function UnitIcon({ unit }: { unit: Unit }) {
+  return <button type="button" className="unit-icon-button" onClick={() => navigate(`units/${unit.id}`, false)} title={unit.name} aria-label={`View ${unit.name}`}>
+    <UnitArt unit={unit} />
+  </button>
+}
+
+function UnitModal({ unit, onClose }: { unit: Unit; onClose: () => void }) {
+  const dialogRef = useRef<HTMLDialogElement>(null)
+  useEffect(() => {
+    const dialog = dialogRef.current
+    if (!dialog) return
+    dialog.showModal()
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = previousOverflow
+      if (dialog.open) dialog.close()
+    }
+  }, [])
+  const effectName = unit.type === 'Speed Debuff' ? 'Speed multiplier' : unit.type === 'Range Buff' ? 'Range multiplier' : 'Damage'
+  return <dialog ref={dialogRef} className="unit-modal" aria-labelledby="unit-modal-title" onClose={onClose} onClick={e => { if (e.target === e.currentTarget) onClose() }}>
+    <div className="modal-inner">
+      <div className="modal-top"><span style={{ color: rarityColor[unit.rarity] }}>{unit.rarity}</span><button type="button" className="close-button" onClick={onClose} aria-label="Close unit details">Close</button></div>
+      <div className="modal-unit-header">
+        <UnitArt unit={unit} large />
+        <div className="modal-unit-info">
+          <h2 id="unit-modal-title">{unit.name}</h2>
+          <dl className="unit-meta">
+            <div><dt>Type</dt><dd>{unit.type}</dd></div>
+            <div><dt>Capacity</dt><dd>{unit.capacity}</dd></div>
+            <div><dt>Obtained</dt><dd>{unit.obtainable}</dd></div>
+            <div><dt>Added</dt><dd>{formatAdded(unit.added)}</dd></div>
+            <div><dt>Update</dt><dd>{unit.addedUpdate || '—'}</dd></div>
+            <div><dt>Levels</dt><dd>{unit.levels.length}</dd></div>
+          </dl>
+        </div>
+      </div>
+      <section className="unit-levels"><h3>Stats by level</h3><div className="table-scroll"><table>
+        <thead><tr><th>Level</th><th>Cost</th><th>{effectName}</th><th>Range</th><th>Hits/sec</th></tr></thead>
+        <tbody>{unit.levels.map(level => <tr key={level.level}><td>{level.level}</td><td>{level.cost.toLocaleString()}</td><td>{level.damage}</td><td>{level.range}</td><td>{level.fireRate}</td></tr>)}</tbody>
+      </table></div><p className="table-note">Level 1 cost is the placement cost.</p></section>
     </div>
+  </dialog>
+}
+
+function Units({ selectedUnitId }: { selectedUnitId?: string }) {
+  const [query, setQuery] = useState('')
+  const search = query.trim().toLocaleLowerCase()
+  const groups = useMemo(() => rarityOrder.map(rarity => ({
+    rarity,
+    matches: units.filter(unit => unit.rarity === rarity && `${unit.name} ${unit.type} ${unit.obtainable}`.toLocaleLowerCase().includes(search))
+      .sort((a, b) => a.name.localeCompare(b.name)),
+  })).filter(group => group.matches.length > 0), [search])
+  const selectedUnit = units.find(unit => unit.id === selectedUnitId)
+  return <div className="container page-content units-page">
+    <PageTitle title="Units" />
+    <div className="units-toolbar"><input className="search-input" type="search" placeholder="Search units..." value={query} onChange={e => setQuery(e.target.value)} aria-label="Search units" />
+      <span>{groups.reduce((sum, group) => sum + group.matches.length, 0)} units</span>
+    </div>
+    {groups.length ? groups.map(group => <section className="rarity-section" key={group.rarity}>
+      <div className="rarity-title"><h2 style={{ color: rarityColor[group.rarity] }}>{group.rarity}</h2><span>{group.matches.length}</span></div>
+      <div className="unit-icon-grid">{group.matches.map(unit => <UnitIcon key={unit.id} unit={unit} />)}</div>
+    </section>) : <p className="empty-message">No units found.</p>}
+    {selectedUnitId && (selectedUnit ? <UnitModal key={selectedUnit.id} unit={selectedUnit} onClose={() => navigate('units', false)} /> : <p className="empty-message">Unit not found. <button type="button" className="quiet-link" onClick={() => navigate('units', false)}>Close</button></p>)}
   </div>
 }
-function RangeValue({ bounds }: { bounds: [number, number] }) {
-  return <>{bounds[0] === bounds[1] ? bounds[0] : `${bounds[0]}–${bounds[1]}`}</>
-}
+
 function DifficultyToggle({ difficulty, onChange }: { difficulty: Difficulty; onChange: (value: Difficulty) => void }) {
-  return <div className="difficulty-toggle" aria-label="Level difficulty"><span className="muted difficulty-label">DIFFICULTY</span>
-    <div className="difficulty-options" role="group" aria-label="Choose difficulty">
-      <button type="button" aria-pressed={difficulty === 'normal'} className={difficulty === 'normal' ? 'selected' : ''} onClick={() => onChange('normal')}>NORMAL</button>
-      <button type="button" aria-pressed={difficulty === 'max'} className={difficulty === 'max' ? 'selected' : ''} onClick={() => onChange('max')}>MAX</button>
-    </div>
+  return <div className="difficulty-toggle"><span>Difficulty</span><div className="difficulty-options" role="group" aria-label="Level difficulty">
+    <button type="button" aria-pressed={difficulty === 'normal'} className={difficulty === 'normal' ? 'active' : ''} onClick={() => onChange('normal')}>Normal</button>
+    <button type="button" aria-pressed={difficulty === 'max'} className={difficulty === 'max' ? 'active' : ''} onClick={() => onChange('max')}>MAX</button>
+  </div></div>
+}
+
+function Levels({ difficulty, onDifficultyChange, expanded, onToggle }: {
+  difficulty: Difficulty; onDifficultyChange: (value: Difficulty) => void
+  expanded: number[]; onToggle: (id: number) => void
+}) {
+  return <div className="container page-content levels-page">
+    <PageTitle title="Levels" />
+    <DifficultyToggle difficulty={difficulty} onChange={onDifficultyChange} />
+    <div className="chapters-list">{levels.chapters.map(chapter => {
+      const open = expanded.includes(chapter.id)
+      return <section className={`chapter-box ${open ? 'chapter-open' : ''}`} key={chapter.id}>
+        <button type="button" className="chapter-trigger" aria-expanded={open} aria-controls={`chapter-levels-${chapter.id}`} onClick={() => onToggle(chapter.id)}>
+          <span className="chapter-id">Chapter {chapter.id}</span><span className="chapter-description"><strong>{chapter.name}</strong><small>{chapter.levels.length} levels{chapter.endless ? ' + endless' : ''} · {formatAdded(chapter.added)}</small></span><span className="chapter-chevron" aria-hidden="true">{open ? '−' : '+'}</span>
+        </button>
+        {open && <div className="chapter-content" id={`chapter-levels-${chapter.id}`}>
+          <div className="compact-level-grid">{chapter.levels.map(level => <button type="button" className="compact-level" key={level.number} onClick={() => navigate(`levels/${chapter.id}/${level.number}`)}>
+            <strong>{chapter.id}-{level.number}</strong><span>{level.name}</span><small>{level.waves} waves</small>
+          </button>)}
+            {chapter.endless && <button type="button" className="compact-level endless-level" onClick={() => navigate(`levels/${chapter.id}/endless`)}><strong>{chapter.id}-Endless</strong><span>Endless</span><small>Unlimited waves</small></button>}
+          </div>
+          <p className="chapter-hint">Select a level to see rewards, starting money and bosses in {difficulty === 'normal' ? 'Normal' : 'MAX'} mode.</p>
+        </div>}
+      </section>
+    })}</div>
   </div>
 }
-function Levels({ difficulty, onDifficultyChange }: { difficulty: Difficulty; onDifficultyChange: (value: Difficulty) => void }) {
-  return <div className="container page-content">
-    <SectionHeader eyebrow="THE DATABASE / 02" title="Levels" detail="Explore chapters, stages and their rewards." />
-    <DifficultyToggle difficulty={difficulty} onChange={onDifficultyChange} />
-    {levels.chapters.map(chapter => <section className="chapter-section" key={chapter.id}>
-      <div className="chapter-heading"><div><p className="eyebrow">CHAPTER {chapter.id}</p><h2>{chapter.name}</h2><p className="muted">Added {formatAdded(chapter.added)} · {chapter.addedUpdate} · {chapter.levels.length} levels</p></div></div>
-      <div className="level-grid">{chapter.levels.map(level => <button type="button" className="level-card level-card-button" key={level.number} onClick={() => navigate(`levels/${chapter.id}/${level.number}`)}>
-        <div className="level-card-top"><span className="level-number">{chapter.id}-{level.number}</span><span className="muted small">{level.waves} WAVES</span></div>
-        <div className="level-info"><h3>{level.name}</h3><p className="muted">Boss: {level.boss ?? 'None'}</p><div className="level-meta"><span>{level[difficulty].fazCoins} FAZCOINS</span><span><RangeValue bounds={level[difficulty].remnant} /> REMNANT</span><span className="level-go">VIEW →</span></div></div>
-      </button>)}
-      {chapter.endless && <button type="button" className="level-card level-card-button endless-card" onClick={() => navigate(`levels/${chapter.id}/endless`)}>
-        <div className="level-card-top"><span className="level-number">{chapter.id}-∞</span><span className="muted small">ENDLESS WAVES</span></div>
-        <div className="level-info"><h3>Endless</h3><p className="muted">Earn rewards every 10 waves.</p><div className="level-meta"><span>{chapter.endless.startingMoney[difficulty]} STARTING MONEY</span><span className="level-go">VIEW →</span></div></div>
-      </button>}</div>
-    </section>)}
+
+function Reward({ icon, label, value }: { icon?: string; label: string; value: string }) {
+  return <div className="reward-stat">{icon && <img src={asset(`general/${icon}`)} alt="" />}
+    <span><small>{label}</small><strong>{value}</strong></span>
   </div>
 }
 function LevelDetails({ chapterId, levelId, difficulty, onDifficultyChange }: { chapterId: string; levelId: string; difficulty: Difficulty; onDifficultyChange: (value: Difficulty) => void }) {
-  const chapter = levels.chapters.find(c => String(c.id) === chapterId)
-  const stage = chapter?.levels.find(l => String(l.number) === levelId)
+  const chapter = levels.chapters.find(item => String(item.id) === chapterId)
+  const stage = chapter?.levels.find(item => String(item.number) === levelId)
   const endless = levelId === 'endless' ? chapter?.endless : null
-  if (!chapter || (!stage && !endless)) return <div className="container page-content"><p>Level not found.</p><button className="back-link" onClick={() => navigate('levels')}>← ALL LEVELS</button></div>
-  const unit = endless ? units.find(u => u.id === endless.unitId) : null
-  return <div className="container page-content">
-    <button className="back-link" onClick={() => navigate('levels')}>← ALL LEVELS</button>
-    <SectionHeader eyebrow={`CHAPTER ${chapter.id} / ${chapter.name.toUpperCase()}`} title={stage ? `${chapter.id}-${stage.number} · ${stage.name}` : `${chapter.id}-Endless`} />
+  if (!chapter || (!stage && !endless)) return <div className="container page-content"><PageTitle title="Level not found" /><button className="quiet-link" onClick={() => navigate('levels')}>Back to levels</button></div>
+  const unit = endless ? units.find(item => item.id === endless.unitId) : null
+  return <div className="container page-content level-detail">
+    <button type="button" className="quiet-link back-link" onClick={() => navigate('levels')}>Back to levels</button>
+    <PageTitle title={stage ? `${chapter.id}-${stage.number} ${stage.name}` : `${chapter.id}-Endless`} subtitle={`Chapter ${chapter.id} · ${chapter.name}`} />
     <DifficultyToggle difficulty={difficulty} onChange={onDifficultyChange} />
-    {stage ? <div className="level-detail-panels">
-      <div className="table-panel level-detail-main"><h2>Level information</h2><div className="level-facts">
-        <Stat label="FAZCOINS" value={stage[difficulty].fazCoins.toLocaleString()} />
-        <Stat label="REMNANT" value={stage[difficulty].remnant[0] === stage[difficulty].remnant[1] ? String(stage[difficulty].remnant[0]) : stage[difficulty].remnant.join('–')} />
-        <Stat label="STARTING MONEY" value={stage[difficulty].startingMoney.toLocaleString()} />
-        <Stat label="WAVES" value={String(stage.waves)} />
-      </div><p className="unit-extra">Boss: <strong>{stage.boss ?? 'None'}</strong></p></div>
-    </div> : endless && <div className="endless-detail">
-      <div className="level-facts endless-facts"><Stat label="STARTING MONEY" value={endless.startingMoney[difficulty].toLocaleString()} /><Stat label="REMNANT / 10 WAVES" value={`${endless.remnantEveryTenWaves[0]}–${endless.remnantEveryTenWaves[1]}`} /><Stat label="WAVES" value="Unlimited" /></div>
-      <div className="table-panel"><h2>FazCoins by wave</h2><p className="muted">Awarded every 10 waves. Rewards are the same in Normal and MAX.</p><div className="table-scroll"><table><thead><tr><th>WAVE REACHED</th><th>FAZCOINS REWARDED</th></tr></thead><tbody>
-        {endless.fazCoinsEveryTenWaves.map((coins, i) => <tr key={i}><td>{(i + 1) * 10}</td><td>{coins.toLocaleString()}</td></tr>)}
-        <tr><td>110, 120, 130, …</td><td>{endless.fazCoinsAfterWave100.toLocaleString()} each 10 waves</td></tr>
-      </tbody></table></div><p className="table-caption">Remnant is randomly awarded within the listed range every 10 waves.</p></div>
-      <div className="table-panel"><h2>Possible unit reward</h2>{unit ? <button type="button" className="endless-unit-link" onClick={() => navigate(`units/${unit.id}`)}><UnitArt unit={unit} /><span><strong>{unit.name}</strong><small>VIEW UNIT →</small></span></button> : <p className="muted">{endless.unitId}</p>}</div>
-      <div className="table-panel"><h2>Bosses</h2><ul className="endless-boss-list">{endless.bosses.map(boss => <li key={boss}>{boss}</li>)}</ul></div>
-    </div>}
+    {stage ? <>
+      <div className="reward-grid">
+        <Reward icon="FazCoinIcon.png" label="FazCoins" value={String(stage[difficulty].fazCoins)} />
+        <Reward icon="RemnantIcon.png" label="Remnant" value={rangeLabel(stage[difficulty].remnant)} />
+        <Reward label="Starting money" value={String(stage[difficulty].startingMoney)} />
+        <Reward label="Waves" value={String(stage.waves)} />
+      </div>
+      <div className="level-boss"><span>Boss</span><strong>{stage.boss ?? 'None'}</strong></div>
+    </> : endless && <>
+      <div className="reward-grid">
+        <Reward label="Starting money" value={String(endless.startingMoney[difficulty])} />
+        <Reward icon="RemnantIcon.png" label="Remnant every 10 waves" value={rangeLabel(endless.remnantEveryTenWaves)} />
+        <Reward label="Waves" value="Unlimited" />
+      </div>
+      <section className="data-panel"><h2>FazCoins every 10 waves</h2><div className="table-scroll"><table><thead><tr><th>Wave</th><th>FazCoins</th></tr></thead><tbody>
+        {endless.fazCoinsEveryTenWaves.map((coins, index) => <tr key={index}><td>{(index + 1) * 10}</td><td>{coins}</td></tr>)}
+        <tr><td>110 onward, every 10 waves</td><td>{endless.fazCoinsAfterWave100}</td></tr>
+      </tbody></table></div><p className="table-note">Rewards are the same in both difficulties. Remnant is randomized every 10 waves.</p></section>
+      <div className="endless-extra">
+        <section className="data-panel"><h2>Possible unit</h2>{unit ? <button className="endless-unit" onClick={() => navigate(`units/${unit.id}`)} title={`View ${unit.name}`}><UnitArt unit={unit} /><span>{unit.name}</span></button> : <p>{endless.unitId}</p>}</section>
+        <section className="data-panel"><h2>Bosses</h2><ul className="boss-list">{endless.bosses.map(boss => <li key={boss}>{boss}</li>)}</ul></section>
+      </div>
+    </>}
   </div>
+}
+
+function ImageViewer({ feature, onClose }: { feature: Feature; onClose: () => void }) {
+  const dialogRef = useRef<HTMLDialogElement>(null)
+  useEffect(() => {
+    const dialog = dialogRef.current
+    if (!dialog) return
+    dialog.showModal()
+    return () => { if (dialog.open) dialog.close() }
+  }, [])
+  return <dialog className="image-viewer" ref={dialogRef} aria-label={`${feature.title} enlarged image`} onClose={onClose} onClick={event => { if (event.target === event.currentTarget) onClose() }}>
+    <div><button type="button" className="close-button" onClick={onClose}>Close</button><img src={asset(feature.image)} alt={feature.title} /></div>
+  </dialog>
 }
 function Features() {
-  return <div className="container page-content">
-    <SectionHeader eyebrow="THE DATABASE / 03" title="Features" detail="Explore the features available in Five TD's." />
-    <div className="feature-grid">
-      {features.map(feature => <article className="feature-card" key={feature.id}>
-        <div className="feature-card-media">
-          {feature.image ? <img src={`${import.meta.env.BASE_URL}${feature.image.replace(/^\//, '')}`} alt={feature.title} loading="lazy" /> : <span aria-hidden="true">✳</span>}
-        </div>
-        <div className="feature-card-copy">
-          <h3>{feature.title}</h3>
-          <div className="feature-card-meta">
-            <p><span>ACCESSED</span><strong>{feature.accessed}</strong></p>
-            <p><span>ADDED</span><strong>{formatAdded(feature.added)}{feature.addedUpdate ? ` (${feature.addedUpdate})` : ''}</strong></p>
-          </div>
-          <ul>{feature.details.map((detail, i) => <li key={i}>{detail}</li>)}</ul>
-        </div>
-      </article>)}
-    </div>
+  const [imageView, setImageView] = useState<Feature | null>(null)
+  return <div className="container page-content features-page">
+    <PageTitle title="Features" />
+    <div className="feature-grid">{features.map(feature => <article className="feature-card" key={feature.id}>
+      <button type="button" className="feature-card-media" onClick={() => setImageView(feature)} aria-label={`Enlarge ${feature.title} image`} title={`Enlarge ${feature.title} image`}>
+        {feature.image ? <img src={asset(feature.image)} alt="" loading="lazy" /> : <span>No image</span>}
+      </button>
+      <div className="feature-card-content">
+        <h2>{feature.title}</h2>
+        <div className="feature-meta"><span>Accessed: {feature.accessed}</span><span>Added: {formatAdded(feature.added)}{feature.addedUpdate ? ` · ${feature.addedUpdate}` : ''}</span></div>
+        <div className="feature-details">{feature.details.map((detail, index) => <p key={index}>{detail}</p>)}</div>
+      </div>
+    </article>)}</div>
+    {imageView && <ImageViewer key={imageView.id} feature={imageView} onClose={() => setImageView(null)} />}
   </div>
 }
+
 function App() {
   const [route, setRoute] = useState(getRoute)
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [levelDifficulty, setLevelDifficulty] = useState<Difficulty>('normal')
+  const [difficulty, setDifficulty] = useState<Difficulty>('normal')
+  const [expandedChapters, setExpandedChapters] = useState<number[]>([])
   useEffect(() => {
     const onHash = () => { setRoute(getRoute()); setMobileOpen(false) }
     window.addEventListener('hashchange', onHash)
     return () => window.removeEventListener('hashchange', onHash)
   }, [])
   const current = route.split('/')[0]
-  return <div className="site"><header className="site-header"><div className="container header-inner"><a className="brand" href="#/home" aria-label="Five TD's home"><span className="brand-icon">5<span>✳</span></span><span>FIVE <b>TD'S</b><small>OFFICIAL WIKI</small></span></a><nav className={mobileOpen ? 'nav nav-open' : 'nav'} aria-label="Main navigation">{links.map(link => <a href={`#/${link.id}`} key={link.id} className={current === link.id ? 'active' : ''}>{link.title}</a>)}</nav><div className="header-actions"><a className="header-play" href={gameUrl} target="_blank" rel="noreferrer">PLAY GAME ↗</a><button className="mobile-toggle" aria-label={mobileOpen ? 'Close menu' : 'Open menu'} aria-expanded={mobileOpen} onClick={() => setMobileOpen(!mobileOpen)}>{mobileOpen ? '✕' : '☰'}</button></div></div></header><main>{route.startsWith('units/') ? <UnitDetails id={route.slice('units/'.length)} /> : current === 'units' ? <Units /> : route.startsWith('levels/') ? <LevelDetails chapterId={route.split('/')[1]} levelId={route.split('/')[2]} difficulty={levelDifficulty} onDifficultyChange={setLevelDifficulty} /> : current === 'levels' ? <Levels difficulty={levelDifficulty} onDifficultyChange={setLevelDifficulty} /> : current === 'features' ? <Features /> : <Home />}</main><footer className="footer"><div className="container footer-inner"><div><strong>FIVE <span>TD'S</span></strong><p>The community companion for Five TD's on Roblox.</p></div><div className="footer-links">{links.map(link => <a key={link.id} href={`#/${link.id}`}>{link.title}</a>)}</div><span className="muted small">© {new Date().getFullYear()} Five TD's</span></div></footer></div>
+  return <div className="site">
+    <header className="site-header"><div className="container header-inner">
+      <a className="brand" href="#/home" aria-label="Five TD's home"><img src={asset('general/Logo-Cropped.png')} alt="Five TD's" /></a>
+      <nav className={mobileOpen ? 'nav nav-open' : 'nav'} aria-label="Main navigation">
+        {links.map(link => <a key={link} href={`#/${link.toLowerCase()}`} className={current === link.toLowerCase() ? 'active' : ''} aria-current={current === link.toLowerCase() ? 'page' : undefined}>{link}</a>)}
+      </nav>
+      <div className="header-actions"><a className="header-play" href={gameUrl} target="_blank" rel="noreferrer">Play game</a><button type="button" className="mobile-toggle" aria-label={mobileOpen ? 'Close menu' : 'Open menu'} aria-expanded={mobileOpen} onClick={() => setMobileOpen(!mobileOpen)}>{mobileOpen ? 'Close' : 'Menu'}</button></div>
+    </div></header>
+    <main>{current === 'units' ? <Units selectedUnitId={route.startsWith('units/') ? route.slice(6) : undefined} />
+      : route.startsWith('levels/') ? <LevelDetails chapterId={route.split('/')[1]} levelId={route.split('/')[2]} difficulty={difficulty} onDifficultyChange={setDifficulty} />
+      : current === 'levels' ? <Levels difficulty={difficulty} onDifficultyChange={setDifficulty} expanded={expandedChapters} onToggle={id => setExpandedChapters(previous => previous.includes(id) ? previous.filter(item => item !== id) : [...previous, id])} />
+      : current === 'features' ? <Features /> : <Home />}</main>
+    <footer className="site-footer"><div className="container footer-inner"><span>Five TD's</span><span>Units, levels and features</span><a href={gameUrl} target="_blank" rel="noreferrer">Roblox</a></div></footer>
+  </div>
 }
 export default App
