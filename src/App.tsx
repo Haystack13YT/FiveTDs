@@ -16,7 +16,7 @@ type StoryLevel = { number: number; name: string; waves: number; boss: string | 
 type EndlessLevel = { startingMoney: Record<Difficulty, number>; fazCoinsEveryTenWaves: number[]; fazCoinsAfterWave100: number; remnantEveryTenWaves: [number, number]; unitId: string; bosses: string[] }
 type Chapter = { id: number; name: string; added: string; addedUpdate: string; levels: StoryLevel[]; endless: EndlessLevel | null }
 type LevelsDatabase = { chapters: Chapter[] }
-type Feature = { id: string; title: string; category: string; summary: string; details: string[]; image: string }
+type Feature = { id: string; title: string; image: string; accessed: string; added: string; addedUpdate?: string; details: string[] }
 const units = unitsData as Unit[]
 const levels = levelsData as LevelsDatabase
 const features = featuresData as Feature[]
@@ -70,7 +70,7 @@ function Home() {
     </section>
     <section className="stats-wrap"><div className="container stats-bar"><div className="stats-intro"><span className="eyebrow">LIVE GAME DATA</span><strong>By the numbers</strong></div><Stat label="ACTIVE PLAYERS" value="—"/><Stat label="TOTAL VISITS" value="—"/><Stat label="FAVOURITES" value="—"/><div className="stats-note">Roblox stats integration<br/>coming soon</div></div></section>
     <section className="container content-section"><SectionHeader eyebrow="THE ROSTER" title="Meet the units" detail="Find the right defense for every wave."/><div className="unit-grid">{units.slice(0, 4).map(u => <UnitCard key={u.id} unit={u} />)}<button className="explore-card" onClick={() => navigate('units')}><span>↗</span><strong>ALL UNITS</strong><small>VIEW DATABASE →</small></button></div></section>
-    <section className="container home-lower"><div className="feature-panel"><p className="eyebrow">MAP INTEL</p><h2>Know your<br/><em>battlefield.</em></h2><p>Explore stages and difficulties before your next run.</p><button className="text-link" onClick={() => navigate('levels')}>VIEW LEVELS <span>→</span></button><div className="feature-decor">▦</div></div><div className="update-panel"><p className="eyebrow">GAME SYSTEMS</p><h2>Explore game<br/>features</h2><p>Discover how summoning, quests, loadouts and more work in Five TD's.</p><button className="text-link" onClick={() => navigate('features')}>EXPLORE FEATURES <span>→</span></button><span className="update-panel-decor">✳</span></div></section>
+    <section className="container home-lower"><div className="feature-panel"><p className="eyebrow">MAP INTEL</p><h2>Know your<br/><em>battlefield.</em></h2><p>Explore stages and difficulties before your next run.</p><button className="text-link" onClick={() => navigate('levels')}>VIEW LEVELS <span>→</span></button><div className="feature-decor">▦</div></div><div className="update-panel"><p className="eyebrow">GAME SYSTEMS</p><h2>Explore game<br/>features</h2><p>Learn about summons, quests, mods, AFK rewards and more in Five TD's.</p><button className="text-link" onClick={() => navigate('features')}>EXPLORE FEATURES <span>→</span></button><span className="update-panel-decor">✳</span></div></section>
   </>
 }
 function Units() {
@@ -163,11 +163,23 @@ function LevelDetails({ chapterId, levelId, difficulty, onDifficultyChange }: { 
   </div>
 }
 function Features() {
-  return <div className="container page-content"><SectionHeader eyebrow="THE DATABASE / 03" title="Features" detail="A starting guide to Five TD's game systems. More detail can be added anytime." />
-    <div className="feature-grid">{features.map(feature => <article className="feature-card" key={feature.id}>
-      <div className="feature-card-media">{feature.image ? <img src={`${import.meta.env.BASE_URL}${feature.image.replace(/^\//, '')}`} alt={feature.title} /> : <span>✳</span>}</div>
-      <div className="feature-card-copy"><p className="eyebrow">{feature.category}</p><h3>{feature.title}</h3><p className="muted">{feature.summary}</p><ul>{feature.details.map(detail => <li key={detail}>{detail}</li>)}</ul></div>
-    </article>)}</div>
+  return <div className="container page-content">
+    <SectionHeader eyebrow="THE DATABASE / 03" title="Features" detail="Explore the features available in Five TD's." />
+    <div className="feature-grid">
+      {features.map(feature => <article className="feature-card" key={feature.id}>
+        <div className="feature-card-media">
+          {feature.image ? <img src={`${import.meta.env.BASE_URL}${feature.image.replace(/^\//, '')}`} alt={feature.title} loading="lazy" /> : <span aria-hidden="true">✳</span>}
+        </div>
+        <div className="feature-card-copy">
+          <h3>{feature.title}</h3>
+          <div className="feature-card-meta">
+            <p><span>ACCESSED</span><strong>{feature.accessed}</strong></p>
+            <p><span>ADDED</span><strong>{formatAdded(feature.added)}{feature.addedUpdate ? ` (${feature.addedUpdate})` : ''}</strong></p>
+          </div>
+          <ul>{feature.details.map((detail, i) => <li key={i}>{detail}</li>)}</ul>
+        </div>
+      </article>)}
+    </div>
   </div>
 }
 function App() {

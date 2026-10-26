@@ -1,68 +1,109 @@
 [
   {
-    "id": "summoning",
-    "title": "Summoning",
-    "category": "Units",
-    "summary": "Discover and obtain units through the summon system.",
+    "id": "afk-area",
+    "title": "AFK Area",
+    "image": "features/AFKArea.jpg",
+    "accessed": "Lobby",
+    "added": "2026-08-12",
+    "addedUpdate": "EXCLUSIVE UPDATE",
     "details": [
-      "Browse the available unit pool.",
-      "Equip the units you obtain into your loadout."
-    ],
-    "image": ""
+      "It gives the player rewards the longer they stay there",
+      "Currently it gives 1 FazCoin every 25 seconds, and 1 Remnant every 2 minutes"
+    ]
   },
   {
-    "id": "upgrading",
-    "title": "Unit Upgrading",
-    "category": "Gameplay",
-    "summary": "Improve placed units during a match.",
+    "id": "chapters",
+    "title": "Chapters",
+    "image": "features/Chapters.jpg",
+    "accessed": "Main Game",
+    "added": "2026-08-09",
+    "addedUpdate": "EA RELEASE",
     "details": [
-      "Each unit has its own level count and per-level statistics.",
-      "Compare cost, damage, range, and fire rate in the Units database."
-    ],
-    "image": ""
+      "Chapters hold each level in the Main Game",
+      "Each Chapter contains new levels, rewards, and enemies"
+    ]
   },
   {
-    "id": "difficulties",
-    "title": "Difficulties & Levels",
-    "category": "Gameplay",
-    "summary": "Choose a level and difficulty before defending against waves.",
+    "id": "daily-case",
+    "title": "Daily Case",
+    "image": "features/DailyCase.jpg",
+    "accessed": "Lobby",
+    "added": "2026-09-22",
+    "addedUpdate": "QUESTS UPDATE",
     "details": [
-      "View the available stages in the Levels section.",
-      "Face tougher enemies as you progress."
-    ],
-    "image": ""
+      "The Daily Case offers 5 different rewards, 1 being a legendary unit",
+      "Every day the player gets 1 spin, and is maxed out at 3"
+    ]
   },
   {
-    "id": "quests",
-    "title": "Quests",
-    "category": "Progression",
-    "summary": "Take on quests as an additional way to earn rewards.",
+    "id": "exclusive-unit",
+    "title": "Exclusive Unit",
+    "image": "features/ExclusiveUnit.jpg",
+    "accessed": "Lobby",
+    "added": "2026-08-12",
+    "addedUpdate": "EXCLUSIVE UPDATE",
     "details": [
-      "Some units are listed as obtainable through quests.",
-      "More specific quest information can be added here later."
-    ],
-    "image": ""
+      "An Exclusive Unit can be bought with FazCoins when available",
+      "The Current Exclusive Unit can change with Major Updates"
+    ]
   },
   {
-    "id": "endless",
-    "title": "Endless Mode",
-    "category": "Gameplay",
-    "summary": "An additional mode for players who want to keep defending.",
+    "id": "fazdex",
+    "title": "Fazdex",
+    "image": "features/Fazdex.jpg",
+    "accessed": "Lobby",
+    "added": "2026-08-09",
+    "addedUpdate": "EA RELEASE",
     "details": [
-      "Endless is listed as an obtainment method for some units.",
-      "Specific rules and rewards can be documented later."
-    ],
-    "image": ""
+      "This is a way to track progress with collecting units",
+      "Players can also select a unit to show off on their name tag"
+    ]
   },
   {
-    "id": "loadouts",
-    "title": "Loadouts",
-    "category": "Units",
-    "summary": "Choose which units to bring into your next match.",
+    "id": "mods",
+    "title": "Mods",
+    "image": "features/Mods.jpg",
+    "accessed": "Lobby",
+    "added": "2026-10-07",
+    "addedUpdate": "WORKSHOP UPDATE",
     "details": [
-      "Organize a team of units before playing.",
-      "Change your loadout as you unlock more units."
-    ],
-    "image": ""
+      "Mods allow you to upgrade your units with a boost",
+      "Mods can be rolled with Remnant, and can be auto skipped"
+    ]
+  },
+  {
+    "id": "summons",
+    "title": "Summons",
+    "image": "features/Summons.jpg",
+    "accessed": "Lobby",
+    "added": "2026-08-09",
+    "addedUpdate": "EA RELEASE",
+    "details": [
+      "This is the main way to get units, which uses FazCoins",
+      "The main summon pool changes every 30 minutes with new units"
+    ]
+  },
+  {
+    "id": "teasers",
+    "title": "Teasers",
+    "image": "features/Teasers.jpg",
+    "accessed": "Lobby",
+    "added": "2026-08-23",
+    "details": [
+      "This shows images and objects on a table that tease at the details of the next major update",
+      "Usually is changed or added to with every major update"
+    ]
+  },
+  {
+    "id": "unit-quests",
+    "title": "Unit Quests",
+    "image": "features/UnitQuests.jpg",
+    "accessed": "Lobby",
+    "added": "2026-09-22",
+    "addedUpdate": "QUESTS UPDATE",
+    "details": [
+      "These quests are permanent milestones that reward the player with a unit",
+      "They can also be reclaimed for a charge of FazCoins at any time"
+    ]
   }
 ]

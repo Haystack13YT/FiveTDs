@@ -48,7 +48,28 @@ For Endless, `startingMoney.normal` and `startingMoney.max` differ but rewards a
 To add Chapter 2, copy an existing chapter object inside the `chapters` array, change its `id` to 2 and its `name`, dates and level list. Use `"endless": null` if there is no Endless mode for the new chapter. No React edits required.
 
 ## Features
-Edit `src/data/features.json`: every entry uses `id`, `title`, `category`, `summary`, `details` (list of strings), and `image`. Feature screenshots go in `public/features/` as `features/filename.png`. This replaces the former Updates page. Current feature content is deliberately introductory/placeholder copy.
+Edit `src/data/features.json`. The Features page shows a **non-clickable card** for each entry. No category, summary, or separate feature page is needed. Cards show the image, name, where the feature is accessed, the added date, and exactly two details.
+
+To add a feature, copy an existing object inside the JSON list and change its values. Keep the `id` unique (lowercase words separated with hyphens). Example:
+
+```json
+{
+  "id": "sample-feature",
+  "title": "Sample Feature",
+  "image": "features/SampleFeature.jpg",
+  "accessed": "Lobby",
+  "added": "2026-10-26",
+  "addedUpdate": "EXAMPLE UPDATE",
+  "details": [
+    "First piece of information about this feature.",
+    "Second piece of information about this feature."
+  ]
+}
+```
+
+The date must be `YYYY-MM-DD`. `addedUpdate` is **optional**: omit that key when the feature isn't associated with a named update, as with Teasers. Place feature images in `public/features/` and set `image` to `features/ExactFilename.jpg` (do not include `public/`). PNG images also work. Keep filenames and capitalization exact, especially for GitHub Pages.
+
+The nine current features use the existing `.jpg` screenshots in `public/features/`. Changing a screenshot without changing its filename needs no JSON edit.
 
 ## Preview changes locally
 Open a VS Code terminal in the project directory and run `npm.cmd run dev`. Open the displayed localhost URL. Save any edited files with Ctrl+S; the site updates in the browser. This **does not publish** changes.
